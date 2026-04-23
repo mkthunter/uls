@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>AVERT SC — Condições Comerciais</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#F59E0B">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="AVERT SC">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<link rel="icon" type="image/png" href="/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -1801,11 +1811,12 @@ mark{background:#FEF9C3;color:#854D0E;border-radius:2px;padding:0 1px}
 <script>
 var rows=document.querySelectorAll('tr.r');
 var total=136;
+var _norm=function(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')};
 function search(q){
-  q=q.trim().toLowerCase();
+  q=_norm(q.trim());
   var vis=0;
   rows.forEach(function(r){
-    var match=!q||r.dataset.s.includes(q);
+    var match=!q||_norm(r.dataset.s).includes(q);
     r.classList.toggle('hidden',!match);
     if(match)vis++;
   });
@@ -1815,6 +1826,13 @@ function search(q){
 }
 document.getElementById('qi').addEventListener('input',function(e){search(e.target.value);});
 function clearSearch(){document.getElementById('qi').value='';search('');document.getElementById('qi').focus();}
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('/sw.js').catch(e=>console.warn('SW:',e));
+  });
+}
 </script>
 </body>
 </html>

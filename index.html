@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#F59E0B">
   <meta name="mobile-web-app-capable" content="yes">
@@ -13,6 +13,7 @@
   <link rel="icon" type="image/png" href="/icon-192.png">
 <title>AVERT SC — Pedido</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -136,7 +137,7 @@ button{border:none;cursor:pointer}
 .cntb-sel{color:var(--g);font-weight:800;font-family:var(--mono)}
 
 /* ═══════════════ PRODUCT CARD ═══════════════ */
-.plist{padding:0 12px 100px}
+.plist{padding:0 12px calc(100px + env(safe-area-inset-bottom,0px))}
 .card{
   background:var(--surf);
   border:2px solid var(--line);
@@ -618,7 +619,7 @@ button{border:none;cursor:pointer}
 .ij-install-btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #92400E; }
 .ij-skip {
   background: none; border: none;
-  font-size: 14px; font-weight: 700; color: #525252;
+  font-size: 14px; font-weight: 700; color: #A3A3A3;
   cursor: pointer; padding: 8px; text-align: center;
   width: 100%;
 }
@@ -655,13 +656,15 @@ const fpct=v=>v.toFixed(2).replace('.',',')+'%';
 // ═══════ STATE ═══════
 // cart: {"codigo_condId": true}  → permite MESMO produto com múltiplas condições
 let query='';
-let cart={};
+let cart=(()=>{try{return JSON.parse(localStorage.getItem('avert-cart')||'{}')}catch(e){return {}}})();
+function saveCart(){try{localStorage.setItem('avert-cart',JSON.stringify(cart))}catch(e){}}
 let opened=new Set();    // produtos expandidos
 let cartOpen=false;
 let focusSearch=false;
 
+const norm=s=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 function fscore(s,q){
-  s=s.toLowerCase();q=q.toLowerCase();
+  s=norm(s);q=norm(q);
   if(s.includes(q))return 100-s.indexOf(q);
   let sc=0,qi=0;
   for(let i=0;i<s.length&&qi<q.length;i++)if(s[i]===q[qi]){sc++;qi++;}
@@ -679,7 +682,7 @@ function cartItems(){
     const cond=CMAP[condId];
     const cData=p[condId];
     const total=cond.compra*p.preco;
-    const eco=cData.desconto_rs*cond.compra;
+    const eco=cData.desconto_rs*cond.recebe;
     return{key,p,condId,cond,cData,total,eco};
   });
 }
@@ -695,16 +698,17 @@ function toggleCondition(cod,condId){
   const key=`${cod}__${condId}`;
   if(cart[key])delete cart[key];
   else cart[key]=true;
-  render();
+  saveCart();render();
 }
 function removeItem(key){
   delete cart[key];
+  saveCart();
+  if(cartCount()===0)cartOpen=false;
   render();
 }
 
 // ═══════ WhatsApp ═══════
-function sendWA(){
-  const items=cartItems();
+function sendWA(){if(!cartCount())return;const items=cartItems();if(!items.length)return;
   const totalPed=items.reduce((s,it)=>s+it.total,0);
   const totalEco=items.reduce((s,it)=>s+it.eco,0);
   const totalBri=items.reduce((s,it)=>s+it.cond.bonus,0);
@@ -880,7 +884,7 @@ function render(){
   const inp=el('input',{
     id:'searchInput',type:'text',
     placeholder:'Buscar produto…',autocomplete:'off',spellcheck:'false',
-    oninput:(e)=>{query=e.target.value;focusSearch=true;render();},
+    oninput:(e)=>{query=e.target.value;focusSearch=true;clearTimeout(window._st);window._st=setTimeout(render,100);},
     value:query,
   });
   const clr=query?el('button',{class:'srch-clr',onclick:()=>{query='';focusSearch=true;render();}},['×']):null;
