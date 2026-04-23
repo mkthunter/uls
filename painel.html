@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AVERT SC — Condições Comerciais</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --page:#EEF2F8;--white:#fff;
+  --nav:#1A2035;--nav2:#1F2847;--nav3:#253060;
+  --txt:#0F172A;--txt2:#475569;--txt3:#94A3B8;
+  --bord:#E2E8F0;--bord2:#CBD5E1;
+  --amb:#B45309;--ambbg:#FFFBEB;
+  --g:#059669;--gbg:#F0FDF9;--gbd:#6EE7B7;--gdk:#047857;
+  --bl:#2563EB;--blbg:#EFF6FF;--blbd:#93C5FD;--bldk:#1D4ED8;
+  --pu:#7C3AED;--pubg:#F5F3FF;--pubd:#C4B5FD;--pudk:#6D28D9;
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'Inter',sans-serif;
+}
+html{font-family:var(--sans);-webkit-font-smoothing:antialiased;background:var(--page);color:var(--txt);font-size:13px}
+body{min-height:100vh}
+/* TOPBAR */
+.top{position:sticky;top:0;z-index:200;background:var(--nav);height:56px;display:flex;align-items:center;padding:0 20px;gap:16px;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+.logo{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.logo-sq{width:32px;height:32px;border-radius:7px;background:linear-gradient(145deg,#F59E0B,#D97706);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:11px;color:#000;letter-spacing:.02em}
+.logo-name{font-size:14px;font-weight:700;color:#F1F5F9;letter-spacing:.05em}
+.logo-sub{font-size:10px;color:#64748B;font-family:var(--mono);margin-top:1px}
+/* SEARCH */
+.srch-w{flex:1;max-width:440px;position:relative}
+.srch-w input{width:100%;height:36px;border-radius:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#E2E8F0;font-family:var(--sans);font-size:13px;padding:0 36px 0 36px;outline:none;transition:border-color .15s}
+.srch-w input::placeholder{color:#475569}
+.srch-w input:focus{border-color:rgba(245,158,11,.5)}
+.si{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:15px;color:#475569;pointer-events:none}
+.sx{position:absolute;right:9px;top:50%;transform:translateY(-50%);background:none;border:none;color:#475569;font-size:18px;cursor:pointer;display:none;padding:2px 4px;border-radius:4px;line-height:1}
+.sx:hover{color:#CBD5E1}
+.badge{margin-left:auto;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:4px 12px;font-size:11px;font-family:var(--mono);color:#64748B;flex-shrink:0}
+.badge b{color:#F59E0B}
+/* CONDBAR */
+.condbar{display:flex;background:var(--white);border-bottom:2px solid var(--bord2);padding:0 20px}
+.ci{display:flex;align-items:center;gap:10px;padding:10px 16px;border-right:1px solid var(--bord)}
+.ci:last-child{border:none}
+.ctag{display:inline-flex;border-radius:6px;padding:4px 10px;font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:.03em;flex-shrink:0}
+.ct1{background:var(--gbg);color:var(--g);border:1px solid var(--gbd)}
+.ct2{background:var(--blbg);color:var(--bl);border:1px solid var(--blbd)}
+.ct3{background:var(--pubg);color:var(--pu);border:1px solid var(--pubd)}
+.cdesc{font-size:12px;color:var(--txt2);line-height:1.4}
+.cdesc strong{display:block;font-size:12.5px;font-weight:600;color:var(--txt)}
+.cpct{font-family:var(--mono);font-weight:700;font-size:12px}
+.p1{color:var(--g)} .p2{color:var(--bl)} .p3{color:var(--pu)}
+/* COUNT */
+.cnt{padding:9px 20px;font-size:11px;color:var(--txt3);font-family:var(--mono);background:var(--page);border-bottom:1px solid var(--bord)}
+/* TABLE */
+.tw{overflow-x:auto}
+table{width:100%;min-width:1080px;border-collapse:separate;border-spacing:0}
+/* STICKY HEADER — separate + spacing:0 funciona corretamente */
+thead th{position:sticky;white-space:nowrap;font-weight:600;border-bottom:1px solid rgba(0,0,0,.18)}
+/* Group row */
+.tg th{top:56px;background:var(--nav2);color:#94A3B8;font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:0 14px;height:38px}
+.tg .gi{text-align:left;color:#475569}
+.tg .gp{text-align:left;background:var(--nav);border-right:2px solid rgba(255,255,255,.08)}
+.tg .gc1{text-align:center;color:var(--g)!important;background:#032B1F!important;border-left:3px solid var(--g);border-right:1px solid rgba(255,255,255,.05)}
+.tg .gc2{text-align:center;color:var(--bl)!important;background:#071A3E!important;border-left:3px solid var(--bl);border-right:1px solid rgba(255,255,255,.05)}
+.tg .gc3{text-align:center;color:var(--pu)!important;background:#1F0B42!important;border-left:3px solid var(--pu)}
+/* Sub row */
+.ts th{top:94px;background:#273352;color:#4B5E80;font-size:10px;letter-spacing:.07em;text-transform:uppercase;padding:0 14px;height:30px;border-bottom:2px solid rgba(0,0,0,.25)}
+.ts .sl{text-align:left}
+.ts .sr{text-align:right}
+.ts .spr{text-align:right;border-right:2px solid rgba(255,255,255,.08)}
+.ts .su1{text-align:right;background:#042E22!important;color:#34D399!important;border-left:3px solid var(--g)}
+.ts .sd1{text-align:right;background:#031C16!important;color:#6EE7B7!important;border-right:2px solid rgba(16,185,129,.2)}
+.ts .su2{text-align:right;background:#071830!important;color:#60A5FA!important;border-left:3px solid var(--bl)}
+.ts .sd2{text-align:right;background:#050F1E!important;color:#93C5FD!important;border-right:2px solid rgba(59,130,246,.2)}
+.ts .su3{text-align:right;background:#1C0838!important;color:#A78BFA!important;border-left:3px solid var(--pu)}
+.ts .sd3{text-align:right;background:#110524!important;color:#C4B5FD!important}
+/* ROWS */
+td{padding:8px 14px;border-bottom:1px solid var(--bord);background:var(--white);vertical-align:middle;white-space:nowrap}
+tr.ev td{background:#F8FAFC}
+tr.r:hover td{background:#EBF4FF!important}
+tr.r{display:table-row}
+tr.r.hidden{display:none}
+/* Cells */
+.cd{font-family:var(--mono);font-size:11px;color:var(--txt3);width:72px;min-width:72px}
+.nm{max-width:280px;font-size:13px;font-weight:500;color:var(--txt);overflow:hidden;text-overflow:ellipsis}
+.bs{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--amb);text-align:right;width:100px}
+.pv{font-family:var(--mono);font-size:11.5px;color:var(--txt3);text-align:right;width:100px;border-right:2px solid var(--bord2)!important}
+.u1,.u2,.u3{font-family:var(--mono);font-size:13px;font-weight:700;text-align:right;width:104px}
+.d1,.d2,.d3{text-align:right;width:116px}
+.d1 b,.d2 b,.d3 b{display:block;font-family:var(--mono);font-size:13px;font-weight:700;line-height:1.3}
+.d1 s,.d2 s,.d3 s{display:block;font-family:var(--mono);font-size:10.5px;line-height:1.3;text-decoration:none;opacity:.6}
+/* Condition colors on cells */
+.u1{color:var(--gdk);background:#F0FDF9!important;border-left:3px solid var(--gbd)!important}
+.d1{background:#F0FDF9!important;border-right:2px solid #A7F3D0!important}.d1 b{color:var(--gdk)}.d1 s{color:var(--gdk)}
+.u2{color:var(--bldk);background:#EFF6FF!important;border-left:3px solid var(--blbd)!important}
+.d2{background:#EFF6FF!important;border-right:2px solid #BFDBFE!important}.d2 b{color:var(--bldk)}.d2 s{color:var(--bldk)}
+.u3{color:var(--pudk);background:#F5F3FF!important;border-left:3px solid var(--pubd)!important}
+.d3{background:#F5F3FF!important}.d3 b{color:var(--pudk)}.d3 s{color:var(--pudk)}
+tr.r:hover .u1,tr.r:hover .d1{background:#DCFCE7!important}
+tr.r:hover .u2,tr.r:hover .d2{background:#DBEAFE!important}
+tr.r:hover .u3,tr.r:hover .d3{background:#EDE9FE!important}
+/* FOOT */
+.foot{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:var(--white);border-top:1px solid var(--bord);font-size:11px;color:var(--txt3);font-family:var(--mono)}
+.fr{display:flex;gap:14px}.fc{display:flex;align-items:center;gap:6px}.fd{width:7px;height:7px;border-radius:50%}
+mark{background:#FEF9C3;color:#854D0E;border-radius:2px;padding:0 1px}
+::-webkit-scrollbar{width:4px;height:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--bord2);border-radius:2px}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="logo">
+    <div class="logo-sq">AV</div>
+    <div><div class="logo-name">AVERT SC</div><div class="logo-sub">Tabela 05/03/2026 · Prazo 56 dias</div></div>
+  </div>
+  <div class="srch-w">
+    <span class="si">⌕</span>
+    <input id="qi" type="text" placeholder="Buscar por nome ou código do produto…" autocomplete="off" spellcheck="false">
+    <button class="sx" id="qx" onclick="clearSearch()">×</button>
+  </div>
+  <div class="badge"><b id="vc">136</b> / 136 produtos</div>
+</div>
+
+<div class="condbar">
+  <div class="ci"><span class="ctag ct1">15 + 1</span><div class="cdesc"><strong>Compra 15 · recebe 16 unidades</strong>Desconto efetivo: <span class="cpct p1">-6,25%</span></div></div>
+  <div class="ci"><span class="ctag ct2">25 + 5</span><div class="cdesc"><strong>Compra 25 · recebe 30 unidades</strong>Desconto efetivo: <span class="cpct p2">-16,67%</span></div></div>
+  <div class="ci"><span class="ctag ct3">30 + 10</span><div class="cdesc"><strong>Compra 30 · recebe 40 unidades</strong>Desconto efetivo: <span class="cpct p3">-25,00%</span></div></div>
+</div>
+
+<div class="cnt" id="ct">136 produtos</div>
+
+<div class="tw">
+<table>
+<colgroup>
+  <col style="width:72px"><col><col style="width:100px"><col style="width:100px">
+  <col style="width:104px"><col style="width:116px">
+  <col style="width:104px"><col style="width:116px">
+  <col style="width:104px"><col style="width:116px">
+</colgroup>
+<thead>
+  <tr class="tg">
+    <th colspan="2" class="gi">Produto</th>
+    <th colspan="2" class="gp">Preço</th>
+    <th colspan="2" class="gc1">15 + 1 &nbsp;·&nbsp; recebe 16 unidades</th>
+    <th colspan="2" class="gc2">25 + 5 &nbsp;·&nbsp; recebe 30 unidades</th>
+    <th colspan="2" class="gc3">30 + 10 &nbsp;·&nbsp; recebe 40 unidades</th>
+  </tr>
+  <tr class="ts">
+    <th class="sl">Código</th><th class="sl">Produto</th>
+    <th class="sr">Base</th><th class="spr">PDV Sugerido</th>
+    <th class="su1">Unit. Efetivo</th><th class="sd1">Desconto</th>
+    <th class="su2">Unit. Efetivo</th><th class="sd2">Desconto</th>
+    <th class="su3">Unit. Efetivo</th><th class="sd3">Desconto</th>
+  </tr>
+</thead>
+<tbody>
+<tr class="r ev" data-s="artrotabs pasta x 60g 21014">
+  <td class="cd">21014</td>
+  <td class="nm" title="ARTROTABS PASTA X 60G">ARTROTABS PASTA X 60G</td>
+  <td class="bs">R$&nbsp;141,88</td>
+  <td class="pv">R$&nbsp;222,37</td>
+  <td class="u1">R$&nbsp;133,01</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;8,87</s></td>
+  <td class="u2">R$&nbsp;118,23</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;23,65</s></td>
+  <td class="u3">R$&nbsp;106,41</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;35,47</s></td>
+</tr>
+<tr class="r " data-s="artrotabs sticks x 30 bastões 2785">
+  <td class="cd">2785</td>
+  <td class="nm" title="ARTROTABS STICKS X 30 BASTÕES">ARTROTABS STICKS X 30 BASTÕES</td>
+  <td class="bs">R$&nbsp;163,86</td>
+  <td class="pv">R$&nbsp;256,82</td>
+  <td class="u1">R$&nbsp;153,61</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;10,24</s></td>
+  <td class="u2">R$&nbsp;136,55</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;27,31</s></td>
+  <td class="u3">R$&nbsp;122,89</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;40,96</s></td>
+</tr>
+<tr class="r ev" data-s="artrotabs vet x 30 comp 2842">
+  <td class="cd">2842</td>
+  <td class="nm" title="ARTROTABS VET X 30 COMP">ARTROTABS VET X 30 COMP</td>
+  <td class="bs">R$&nbsp;137,87</td>
+  <td class="pv">R$&nbsp;216,08</td>
+  <td class="u1">R$&nbsp;129,25</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;8,62</s></td>
+  <td class="u2">R$&nbsp;114,89</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;22,98</s></td>
+  <td class="u3">R$&nbsp;103,40</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;34,47</s></td>
+</tr>
+<tr class="r " data-s="babyflora x 10g pasta 21119">
+  <td class="cd">21119</td>
+  <td class="nm" title="BABYFLORA X 10G PASTA">BABYFLORA X 10G PASTA</td>
+  <td class="bs">R$&nbsp;83,81</td>
+  <td class="pv">R$&nbsp;131,36</td>
+  <td class="u1">R$&nbsp;78,57</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;5,24</s></td>
+  <td class="u2">R$&nbsp;69,84</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;13,97</s></td>
+  <td class="u3">R$&nbsp;62,86</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;20,95</s></td>
+</tr>
+<tr class="r ev" data-s="bandpet estéril g x or08 21059">
+  <td class="cd">21059</td>
+  <td class="nm" title="BANDPET ESTÉRIL G X OR08">BANDPET ESTÉRIL G X OR08</td>
+  <td class="bs">R$&nbsp;109,24</td>
+  <td class="pv">R$&nbsp;160,52</td>
+  <td class="u1">R$&nbsp;102,41</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,83</s></td>
+  <td class="u2">R$&nbsp;91,03</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;18,21</s></td>
+  <td class="u3">R$&nbsp;81,93</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;27,31</s></td>
+</tr>
+<tr class="r " data-s="bandpet estéril m x or08 21048">
+  <td class="cd">21048</td>
+  <td class="nm" title="BANDPET ESTÉRIL M X OR08">BANDPET ESTÉRIL M X OR08</td>
+  <td class="bs">R$&nbsp;95,60</td>
+  <td class="pv">R$&nbsp;140,47</td>
+  <td class="u1">R$&nbsp;89,63</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;5,98</s></td>
+  <td class="u2">R$&nbsp;79,67</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;15,93</s></td>
+  <td class="u3">R$&nbsp;71,70</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;23,90</s></td>
+</tr>
+<tr class="r ev" data-s="bandpet estéril p x or08 21049">
+  <td class="cd">21049</td>
+  <td class="nm" title="BANDPET ESTÉRIL P X OR08">BANDPET ESTÉRIL P X OR08</td>
+  <td class="bs">R$&nbsp;80,30</td>
+  <td class="pv">R$&nbsp;117,99</td>
+  <td class="u1">R$&nbsp;75,28</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;5,02</s></td>
+  <td class="u2">R$&nbsp;66,92</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;13,38</s></td>
+  <td class="u3">R$&nbsp;60,22</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;20,07</s></td>
+</tr>
+<tr class="r " data-s="bandpet estéril pp x or20 21050">
+  <td class="cd">21050</td>
+  <td class="nm" title="BANDPET ESTÉRIL PP X OR20">BANDPET ESTÉRIL PP X OR20</td>
+  <td class="bs">R$&nbsp;120,13</td>
+  <td class="pv">R$&nbsp;176,51</td>
+  <td class="u1">R$&nbsp;112,62</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;7,51</s></td>
+  <td class="u2">R$&nbsp;100,11</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;20,02</s></td>
+  <td class="u3">R$&nbsp;90,10</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;30,03</s></td>
+</tr>
+<tr class="r ev" data-s="bandpet não estéril g x or07 21051">
+  <td class="cd">21051</td>
+  <td class="nm" title="BANDPET NÃO ESTÉRIL G X OR07">BANDPET NÃO ESTÉRIL G X OR07</td>
+  <td class="bs">R$&nbsp;49,98</td>
+  <td class="pv">R$&nbsp;73,44</td>
+  <td class="u1">R$&nbsp;46,86</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;3,12</s></td>
+  <td class="u2">R$&nbsp;41,65</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;8,33</s></td>
+  <td class="u3">R$&nbsp;37,48</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;12,49</s></td>
+</tr>
+<tr class="r " data-s="bandpet não estéril m x or07 21052">
+  <td class="cd">21052</td>
+  <td class="nm" title="BANDPET NÃO ESTÉRIL M X OR07">BANDPET NÃO ESTÉRIL M X OR07</td>
+  <td class="bs">R$&nbsp;43,69</td>
+  <td class="pv">R$&nbsp;64,20</td>
+  <td class="u1">R$&nbsp;40,96</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;2,73</s></td>
+  <td class="u2">R$&nbsp;36,41</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;7,28</s></td>
+  <td class="u3">R$&nbsp;32,77</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;10,92</s></td>
+</tr>
+<tr class="r ev" data-s="bandpet não estéril p x or07 21053">
+  <td class="cd">21053</td>
+  <td class="nm" title="BANDPET NÃO ESTÉRIL P X OR07">BANDPET NÃO ESTÉRIL P X OR07</td>
+  <td class="bs">R$&nbsp;34,64</td>
+  <td class="pv">R$&nbsp;50,90</td>
+  <td class="u1">R$&nbsp;32,47</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;2,16</s></td>
+  <td class="u2">R$&nbsp;28,86</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;5,77</s></td>
+  <td class="u3">R$&nbsp;25,98</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;8,66</s></td>
+</tr>
+<tr class="r " data-s="bandpet não estéril pp x or07 21054">
+  <td class="cd">21054</td>
+  <td class="nm" title="BANDPET NÃO ESTÉRIL PP X OR07">BANDPET NÃO ESTÉRIL PP X OR07</td>
+  <td class="bs">R$&nbsp;20,81</td>
+  <td class="pv">R$&nbsp;30,58</td>
+  <td class="u1">R$&nbsp;19,51</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;1,30</s></td>
+  <td class="u2">R$&nbsp;17,35</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;3,47</s></td>
+  <td class="u3">R$&nbsp;15,61</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;5,20</s></td>
+</tr>
+<tr class="r ev" data-s="becordil 5 mg com x 30 2734">
+  <td class="cd">2734</td>
+  <td class="nm" title="BECORDIL 5 MG COM X 30">BECORDIL 5 MG COM X 30</td>
+  <td class="bs">R$&nbsp;82,85</td>
+  <td class="pv">R$&nbsp;129,86</td>
+  <td class="u1">R$&nbsp;77,67</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;5,18</s></td>
+  <td class="u2">R$&nbsp;69,04</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;13,81</s></td>
+  <td class="u3">R$&nbsp;62,14</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;20,71</s></td>
+</tr>
+<tr class="r " data-s="beneflora derme pasta x 30g 21123">
+  <td class="cd">21123</td>
+  <td class="nm" title="BENEFLORA DERME PASTA X 30G">BENEFLORA DERME PASTA X 30G</td>
+  <td class="bs">R$&nbsp;136,70</td>
+  <td class="pv">R$&nbsp;214,26</td>
+  <td class="u1">R$&nbsp;128,16</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;8,54</s></td>
+  <td class="u2">R$&nbsp;113,92</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;22,78</s></td>
+  <td class="u3">R$&nbsp;102,53</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;34,18</s></td>
+</tr>
+<tr class="r ev" data-s="beneflora gatos 21126">
+  <td class="cd">21126</td>
+  <td class="nm" title="BENEFLORA GATOS">BENEFLORA GATOS</td>
+  <td class="bs">R$&nbsp;52,35</td>
+  <td class="pv">R$&nbsp;82,05</td>
+  <td class="u1">R$&nbsp;49,08</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;3,27</s></td>
+  <td class="u2">R$&nbsp;43,63</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;8,73</s></td>
+  <td class="u3">R$&nbsp;39,26</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;13,09</s></td>
+</tr>
+<tr class="r " data-s="beneflora oro pasta 30g 21116">
+  <td class="cd">21116</td>
+  <td class="nm" title="BENEFLORA ORO PASTA 30G">BENEFLORA ORO PASTA 30G</td>
+  <td class="bs">R$&nbsp;130,63</td>
+  <td class="pv">R$&nbsp;204,74</td>
+  <td class="u1">R$&nbsp;122,46</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;8,16</s></td>
+  <td class="u2">R$&nbsp;108,86</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;21,77</s></td>
+  <td class="u3">R$&nbsp;97,97</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;32,66</s></td>
+</tr>
+<tr class="r ev" data-s="beneflora vet 14g x past x 1 2966">
+  <td class="cd">2966</td>
+  <td class="nm" title="BENEFLORA VET 14G X PAST X 1">BENEFLORA VET 14G X PAST X 1</td>
+  <td class="bs">R$&nbsp;54,24</td>
+  <td class="pv">R$&nbsp;85,01</td>
+  <td class="u1">R$&nbsp;50,85</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;3,39</s></td>
+  <td class="u2">R$&nbsp;45,20</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;9,04</s></td>
+  <td class="u3">R$&nbsp;40,68</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;13,56</s></td>
+</tr>
+<tr class="r " data-s="caninus protein bar disp x 16 21180">
+  <td class="cd">21180</td>
+  <td class="nm" title="CANINUS PROTEIN BAR DISP X 16">CANINUS PROTEIN BAR DISP X 16</td>
+  <td class="bs">R$&nbsp;107,07</td>
+  <td class="pv">R$&nbsp;167,82</td>
+  <td class="u1">R$&nbsp;100,38</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,69</s></td>
+  <td class="u2">R$&nbsp;89,23</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;17,85</s></td>
+  <td class="u3">R$&nbsp;80,30</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;26,77</s></td>
+</tr>
+<tr class="r ev" data-s="cistimicin vet 20 comp x 30 21235">
+  <td class="cd">21235</td>
+  <td class="nm" title="CISTIMICIN VET 20 COMP X 30">CISTIMICIN VET 20 COMP X 30</td>
+  <td class="bs">R$&nbsp;120,50</td>
+  <td class="pv">R$&nbsp;188,87</td>
+  <td class="u1">R$&nbsp;112,97</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;7,53</s></td>
+  <td class="u2">R$&nbsp;100,42</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;20,08</s></td>
+  <td class="u3">R$&nbsp;90,38</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;30,13</s></td>
+</tr>
+<tr class="r " data-s="cistimicin vet comp x 30 2898">
+  <td class="cd">2898</td>
+  <td class="nm" title="CISTIMICIN VET COMP X 30">CISTIMICIN VET COMP X 30</td>
+  <td class="bs">R$&nbsp;90,38</td>
+  <td class="pv">R$&nbsp;141,66</td>
+  <td class="u1">R$&nbsp;84,73</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;5,65</s></td>
+  <td class="u2">R$&nbsp;75,32</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;15,06</s></td>
+  <td class="u3">R$&nbsp;67,79</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;22,60</s></td>
+</tr>
+<tr class="r ev" data-s="condroplex 1000 x 60 cap 2805">
+  <td class="cd">2805</td>
+  <td class="nm" title="CONDROPLEX 1000 X 60 CAP">CONDROPLEX 1000 X 60 CAP</td>
+  <td class="bs">R$&nbsp;70,17</td>
+  <td class="pv">R$&nbsp;109,97</td>
+  <td class="u1">R$&nbsp;65,78</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,39</s></td>
+  <td class="u2">R$&nbsp;58,47</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;11,69</s></td>
+  <td class="u3">R$&nbsp;52,62</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;17,54</s></td>
+</tr>
+<tr class="r " data-s="condroplex 1000 x 60 comp 2806">
+  <td class="cd">2806</td>
+  <td class="nm" title="CONDROPLEX 1000 X 60 COMP">CONDROPLEX 1000 X 60 COMP</td>
+  <td class="bs">R$&nbsp;100,23</td>
+  <td class="pv">R$&nbsp;157,09</td>
+  <td class="u1">R$&nbsp;93,96</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,26</s></td>
+  <td class="u2">R$&nbsp;83,52</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;16,70</s></td>
+  <td class="u3">R$&nbsp;75,17</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;25,06</s></td>
+</tr>
+<tr class="r ev" data-s="condroplex 500 x 60 cap 2807">
+  <td class="cd">2807</td>
+  <td class="nm" title="CONDROPLEX 500 X 60 CAP">CONDROPLEX 500 X 60 CAP</td>
+  <td class="bs">R$&nbsp;47,61</td>
+  <td class="pv">R$&nbsp;74,63</td>
+  <td class="u1">R$&nbsp;44,64</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;2,98</s></td>
+  <td class="u2">R$&nbsp;39,68</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;7,94</s></td>
+  <td class="u3">R$&nbsp;35,71</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;11,90</s></td>
+</tr>
+<tr class="r " data-s="condroplex 500 x 60 comp 2808">
+  <td class="cd">2808</td>
+  <td class="nm" title="CONDROPLEX 500 X 60 COMP">CONDROPLEX 500 X 60 COMP</td>
+  <td class="bs">R$&nbsp;68,04</td>
+  <td class="pv">R$&nbsp;106,64</td>
+  <td class="u1">R$&nbsp;63,79</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,25</s></td>
+  <td class="u2">R$&nbsp;56,70</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;11,34</s></td>
+  <td class="u3">R$&nbsp;51,03</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;17,01</s></td>
+</tr>
+<tr class="r ev" data-s="condroplex lb 120g x 60 comp 2811">
+  <td class="cd">2811</td>
+  <td class="nm" title="CONDROPLEX LB 120G X 60 COMP">CONDROPLEX LB 120G X 60 COMP</td>
+  <td class="bs">R$&nbsp;128,01</td>
+  <td class="pv">R$&nbsp;200,63</td>
+  <td class="u1">R$&nbsp;120,01</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;8,00</s></td>
+  <td class="u2">R$&nbsp;106,67</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;21,33</s></td>
+  <td class="u3">R$&nbsp;96,01</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;32,00</s></td>
+</tr>
+<tr class="r " data-s="condroplex pasta x 60 g 21015">
+  <td class="cd">21015</td>
+  <td class="nm" title="CONDROPLEX PASTA X 60 G">CONDROPLEX PASTA X 60 G</td>
+  <td class="bs">R$&nbsp;86,11</td>
+  <td class="pv">R$&nbsp;134,96</td>
+  <td class="u1">R$&nbsp;80,73</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;5,38</s></td>
+  <td class="u2">R$&nbsp;71,76</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;14,35</s></td>
+  <td class="u3">R$&nbsp;64,58</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;21,53</s></td>
+</tr>
+<tr class="r ev" data-s="condroplex stick´s  lb x 30 bastões 2812">
+  <td class="cd">2812</td>
+  <td class="nm" title="CONDROPLEX STICK´S  LB X 30 BASTÕES">CONDROPLEX STICK´S  LB X 30 BASTÕES</td>
+  <td class="bs">R$&nbsp;188,22</td>
+  <td class="pv">R$&nbsp;295,01</td>
+  <td class="u1">R$&nbsp;176,46</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;11,76</s></td>
+  <td class="u2">R$&nbsp;156,85</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;31,37</s></td>
+  <td class="u3">R$&nbsp;141,17</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;47,06</s></td>
+</tr>
+<tr class="r " data-s="condroplex stick´s x 45 bastões 2809">
+  <td class="cd">2809</td>
+  <td class="nm" title="CONDROPLEX STICK´S X 45 BASTÕES">CONDROPLEX STICK´S X 45 BASTÕES</td>
+  <td class="bs">R$&nbsp;142,17</td>
+  <td class="pv">R$&nbsp;222,82</td>
+  <td class="u1">R$&nbsp;133,28</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;8,89</s></td>
+  <td class="u2">R$&nbsp;118,47</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;23,69</s></td>
+  <td class="u3">R$&nbsp;106,62</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;35,54</s></td>
+</tr>
+<tr class="r ev" data-s="decrise 100mg com x 30 21221">
+  <td class="cd">21221</td>
+  <td class="nm" title="DECRISE 100MG COM X 30">DECRISE 100MG COM X 30</td>
+  <td class="bs">R$&nbsp;66,29</td>
+  <td class="pv">R$&nbsp;103,90</td>
+  <td class="u1">R$&nbsp;62,15</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,14</s></td>
+  <td class="u2">R$&nbsp;55,24</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;11,05</s></td>
+  <td class="u3">R$&nbsp;49,72</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;16,57</s></td>
+</tr>
+<tr class="r " data-s="decrise 200mg com x 30 21222">
+  <td class="cd">21222</td>
+  <td class="nm" title="DECRISE 200MG COM X 30">DECRISE 200MG COM X 30</td>
+  <td class="bs">R$&nbsp;79,68</td>
+  <td class="pv">R$&nbsp;124,89</td>
+  <td class="u1">R$&nbsp;74,70</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,98</s></td>
+  <td class="u2">R$&nbsp;66,40</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;13,28</s></td>
+  <td class="u3">R$&nbsp;59,76</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;19,92</s></td>
+</tr>
+<tr class="r ev" data-s="decrise 50mg com x 30 21220">
+  <td class="cd">21220</td>
+  <td class="nm" title="DECRISE 50MG COM X 30">DECRISE 50MG COM X 30</td>
+  <td class="bs">R$&nbsp;55,19</td>
+  <td class="pv">R$&nbsp;86,50</td>
+  <td class="u1">R$&nbsp;51,74</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;3,45</s></td>
+  <td class="u2">R$&nbsp;45,99</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;9,20</s></td>
+  <td class="u3">R$&nbsp;41,39</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;13,80</s></td>
+</tr>
+<tr class="r " data-s="dermapet cap x 30 21115">
+  <td class="cd">21115</td>
+  <td class="nm" title="DERMAPET CAP X 30">DERMAPET CAP X 30</td>
+  <td class="bs">R$&nbsp;39,37</td>
+  <td class="pv">R$&nbsp;61,71</td>
+  <td class="u1">R$&nbsp;36,91</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;2,46</s></td>
+  <td class="u2">R$&nbsp;32,81</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;6,56</s></td>
+  <td class="u3">R$&nbsp;29,53</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;9,84</s></td>
+</tr>
+<tr class="r ev" data-s="doss vet 1000ui gotas x 5ml 2992">
+  <td class="cd">2992</td>
+  <td class="nm" title="DOSS VET 1000UI GOTAS X 5ML">DOSS VET 1000UI GOTAS X 5ML</td>
+  <td class="bs">R$&nbsp;38,70</td>
+  <td class="pv">R$&nbsp;60,65</td>
+  <td class="u1">R$&nbsp;36,28</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;2,42</s></td>
+  <td class="u2">R$&nbsp;32,25</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;6,45</s></td>
+  <td class="u3">R$&nbsp;29,02</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;9,67</s></td>
+</tr>
+<tr class="r " data-s="felicomfort  refil x 48 ml 21064">
+  <td class="cd">21064</td>
+  <td class="nm" title="FELICOMFORT  REFIL X 48 ML">FELICOMFORT  REFIL X 48 ML</td>
+  <td class="bs">R$&nbsp;143,01</td>
+  <td class="pv">R$&nbsp;224,15</td>
+  <td class="u1">R$&nbsp;134,07</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;8,94</s></td>
+  <td class="u2">R$&nbsp;119,18</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;23,84</s></td>
+  <td class="u3">R$&nbsp;107,26</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;35,75</s></td>
+</tr>
+<tr class="r ev" data-s="felicomfort difus x 48 ml 21065">
+  <td class="cd">21065</td>
+  <td class="nm" title="FELICOMFORT DIFUS X 48 ML">FELICOMFORT DIFUS X 48 ML</td>
+  <td class="bs">R$&nbsp;194,66</td>
+  <td class="pv">R$&nbsp;305,09</td>
+  <td class="u1">R$&nbsp;182,49</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;12,17</s></td>
+  <td class="u2">R$&nbsp;162,21</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;32,44</s></td>
+  <td class="u3">R$&nbsp;145,99</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;48,66</s></td>
+</tr>
+<tr class="r " data-s="felicomfort spray x 30 ml 21066">
+  <td class="cd">21066</td>
+  <td class="nm" title="FELICOMFORT SPRAY X 30 ML">FELICOMFORT SPRAY X 30 ML</td>
+  <td class="bs">R$&nbsp;130,11</td>
+  <td class="pv">R$&nbsp;203,92</td>
+  <td class="u1">R$&nbsp;121,98</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;8,13</s></td>
+  <td class="u2">R$&nbsp;108,42</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;21,68</s></td>
+  <td class="u3">R$&nbsp;97,58</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;32,53</s></td>
+</tr>
+<tr class="r ev" data-s="felicomfort spray x 60 ml 21067">
+  <td class="cd">21067</td>
+  <td class="nm" title="FELICOMFORT SPRAY X 60 ML">FELICOMFORT SPRAY X 60 ML</td>
+  <td class="bs">R$&nbsp;174,79</td>
+  <td class="pv">R$&nbsp;273,96</td>
+  <td class="u1">R$&nbsp;163,87</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;10,92</s></td>
+  <td class="u2">R$&nbsp;145,66</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;29,13</s></td>
+  <td class="u3">R$&nbsp;131,10</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;43,70</s></td>
+</tr>
+<tr class="r " data-s="foli b suspensão oral x 30 ml 2769">
+  <td class="cd">2769</td>
+  <td class="nm" title="FOLI B SUSPENSÃO ORAL X 30 ML">FOLI B SUSPENSÃO ORAL X 30 ML</td>
+  <td class="bs">R$&nbsp;66,72</td>
+  <td class="pv">R$&nbsp;104,58</td>
+  <td class="u1">R$&nbsp;62,55</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,17</s></td>
+  <td class="u2">R$&nbsp;55,60</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;11,12</s></td>
+  <td class="u3">R$&nbsp;50,04</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;16,68</s></td>
+</tr>
+<tr class="r ev" data-s="glicopet x 30 ml 21125">
+  <td class="cd">21125</td>
+  <td class="nm" title="GLICOPET X 30 ML">GLICOPET X 30 ML</td>
+  <td class="bs">R$&nbsp;21,09</td>
+  <td class="pv">R$&nbsp;33,06</td>
+  <td class="u1">R$&nbsp;19,78</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;1,32</s></td>
+  <td class="u2">R$&nbsp;17,58</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;3,52</s></td>
+  <td class="u3">R$&nbsp;15,82</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;5,27</s></td>
+</tr>
+<tr class="r " data-s="hbfel pasta x 70g 2755">
+  <td class="cd">2755</td>
+  <td class="nm" title="HBFEL PASTA X 70G">HBFEL PASTA X 70G</td>
+  <td class="bs">R$&nbsp;44,79</td>
+  <td class="pv">R$&nbsp;70,20</td>
+  <td class="u1">R$&nbsp;41,99</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;2,80</s></td>
+  <td class="u2">R$&nbsp;37,32</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;7,46</s></td>
+  <td class="u3">R$&nbsp;33,59</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;11,20</s></td>
+</tr>
+<tr class="r ev" data-s="hemolipet sticks 210g x 30 21167">
+  <td class="cd">21167</td>
+  <td class="nm" title="HEMOLIPET STICKS 210G X 30">HEMOLIPET STICKS 210G X 30</td>
+  <td class="bs">R$&nbsp;70,33</td>
+  <td class="pv">R$&nbsp;110,23</td>
+  <td class="u1">R$&nbsp;65,94</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,40</s></td>
+  <td class="u2">R$&nbsp;58,61</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;11,72</s></td>
+  <td class="u3">R$&nbsp;52,75</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;17,58</s></td>
+</tr>
+<tr class="r " data-s="hemolipet x 30 comp 21118">
+  <td class="cd">21118</td>
+  <td class="nm" title="HEMOLIPET X 30 COMP">HEMOLIPET X 30 COMP</td>
+  <td class="bs">R$&nbsp;42,71</td>
+  <td class="pv">R$&nbsp;66,94</td>
+  <td class="u1">R$&nbsp;40,04</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;2,67</s></td>
+  <td class="u2">R$&nbsp;35,59</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;7,12</s></td>
+  <td class="u3">R$&nbsp;32,03</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;10,68</s></td>
+</tr>
+<tr class="r ev" data-s="hemolipet x 30 ml 21117">
+  <td class="cd">21117</td>
+  <td class="nm" title="HEMOLIPET X 30 ML">HEMOLIPET X 30 ML</td>
+  <td class="bs">R$&nbsp;26,48</td>
+  <td class="pv">R$&nbsp;41,51</td>
+  <td class="u1">R$&nbsp;24,83</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;1,66</s></td>
+  <td class="u2">R$&nbsp;22,07</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;4,41</s></td>
+  <td class="u3">R$&nbsp;19,86</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;6,62</s></td>
+</tr>
+<tr class="r " data-s="hepguard x 30 comp (6 comp por blister) 2821">
+  <td class="cd">2821</td>
+  <td class="nm" title="HEPGUARD X 30 COMP (6 comp por blister)">HEPGUARD X 30 COMP (6 comp por blister)</td>
+  <td class="bs">R$&nbsp;69,53</td>
+  <td class="pv">R$&nbsp;108,98</td>
+  <td class="u1">R$&nbsp;65,19</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,35</s></td>
+  <td class="u2">R$&nbsp;57,94</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;11,59</s></td>
+  <td class="u3">R$&nbsp;52,15</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;17,38</s></td>
+</tr>
+<tr class="r ev" data-s="kalium vet com x 30 2781">
+  <td class="cd">2781</td>
+  <td class="nm" title="KALIUM VET COM X 30">KALIUM VET COM X 30</td>
+  <td class="bs">R$&nbsp;48,96</td>
+  <td class="pv">R$&nbsp;76,73</td>
+  <td class="u1">R$&nbsp;45,90</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;3,06</s></td>
+  <td class="u2">R$&nbsp;40,80</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;8,16</s></td>
+  <td class="u3">R$&nbsp;36,72</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;12,24</s></td>
+</tr>
+<tr class="r " data-s="kalium vet gatos 200mg com x 30 21025">
+  <td class="cd">21025</td>
+  <td class="nm" title="KALIUM VET GATOS 200MG COM X 30">KALIUM VET GATOS 200MG COM X 30</td>
+  <td class="bs">R$&nbsp;35,47</td>
+  <td class="pv">R$&nbsp;55,59</td>
+  <td class="u1">R$&nbsp;33,25</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;2,22</s></td>
+  <td class="u2">R$&nbsp;29,55</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;5,91</s></td>
+  <td class="u3">R$&nbsp;26,60</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;8,87</s></td>
+</tr>
+<tr class="r ev" data-s="longcare cordeiro 250g 9632">
+  <td class="cd">9632</td>
+  <td class="nm" title="LONGCARE CORDEIRO 250G">LONGCARE CORDEIRO 250G</td>
+  <td class="bs">R$&nbsp;24,50</td>
+  <td class="pv">R$&nbsp;40,08</td>
+  <td class="u1">R$&nbsp;22,97</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;1,53</s></td>
+  <td class="u2">R$&nbsp;20,42</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;4,08</s></td>
+  <td class="u3">R$&nbsp;18,38</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;6,13</s></td>
+</tr>
+<tr class="r " data-s="longcare cordeiro 50g 9631">
+  <td class="cd">9631</td>
+  <td class="nm" title="LONGCARE CORDEIRO 50G">LONGCARE CORDEIRO 50G</td>
+  <td class="bs">R$&nbsp;8,03</td>
+  <td class="pv">R$&nbsp;13,13</td>
+  <td class="u1">R$&nbsp;7,52</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;0,50</s></td>
+  <td class="u2">R$&nbsp;6,69</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;1,34</s></td>
+  <td class="u3">R$&nbsp;6,02</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;2,01</s></td>
+</tr>
+<tr class="r ev" data-s="longcare cordeiro 50g x 12 9633">
+  <td class="cd">9633</td>
+  <td class="nm" title="LONGCARE CORDEIRO 50G X 12">LONGCARE CORDEIRO 50G X 12</td>
+  <td class="bs">R$&nbsp;96,31</td>
+  <td class="pv">R$&nbsp;157,55</td>
+  <td class="u1">R$&nbsp;90,29</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,02</s></td>
+  <td class="u2">R$&nbsp;80,26</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;16,05</s></td>
+  <td class="u3">R$&nbsp;72,23</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;24,08</s></td>
+</tr>
+<tr class="r " data-s="longcare fit 250g 9620">
+  <td class="cd">9620</td>
+  <td class="nm" title="LONGCARE FIT 250G">LONGCARE FIT 250G</td>
+  <td class="bs">R$&nbsp;24,50</td>
+  <td class="pv">R$&nbsp;40,08</td>
+  <td class="u1">R$&nbsp;22,97</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;1,53</s></td>
+  <td class="u2">R$&nbsp;20,42</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;4,08</s></td>
+  <td class="u3">R$&nbsp;18,38</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;6,13</s></td>
+</tr>
+<tr class="r ev" data-s="longcare fit 50g 9619">
+  <td class="cd">9619</td>
+  <td class="nm" title="LONGCARE FIT 50G">LONGCARE FIT 50G</td>
+  <td class="bs">R$&nbsp;8,03</td>
+  <td class="pv">R$&nbsp;13,13</td>
+  <td class="u1">R$&nbsp;7,52</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;0,50</s></td>
+  <td class="u2">R$&nbsp;6,69</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;1,34</s></td>
+  <td class="u3">R$&nbsp;6,02</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;2,01</s></td>
+</tr>
+<tr class="r " data-s="longcare fit 50g x 12 9621">
+  <td class="cd">9621</td>
+  <td class="nm" title="LONGCARE FIT 50G X 12">LONGCARE FIT 50G X 12</td>
+  <td class="bs">R$&nbsp;96,31</td>
+  <td class="pv">R$&nbsp;157,55</td>
+  <td class="u1">R$&nbsp;90,29</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,02</s></td>
+  <td class="u2">R$&nbsp;80,26</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;16,05</s></td>
+  <td class="u3">R$&nbsp;72,23</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;24,08</s></td>
+</tr>
+<tr class="r ev" data-s="longcare mobility 250g 9623">
+  <td class="cd">9623</td>
+  <td class="nm" title="LONGCARE MOBILITY 250G">LONGCARE MOBILITY 250G</td>
+  <td class="bs">R$&nbsp;24,50</td>
+  <td class="pv">R$&nbsp;40,08</td>
+  <td class="u1">R$&nbsp;22,97</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;1,53</s></td>
+  <td class="u2">R$&nbsp;20,42</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;4,08</s></td>
+  <td class="u3">R$&nbsp;18,38</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;6,13</s></td>
+</tr>
+<tr class="r " data-s="llongcare mobility 50g 9622">
+  <td class="cd">9622</td>
+  <td class="nm" title="LLONGCARE MOBILITY 50G">LLONGCARE MOBILITY 50G</td>
+  <td class="bs">R$&nbsp;8,03</td>
+  <td class="pv">R$&nbsp;13,13</td>
+  <td class="u1">R$&nbsp;7,52</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;0,50</s></td>
+  <td class="u2">R$&nbsp;6,69</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;1,34</s></td>
+  <td class="u3">R$&nbsp;6,02</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;2,01</s></td>
+</tr>
+<tr class="r ev" data-s="longcare mobility 50g x 12 9624">
+  <td class="cd">9624</td>
+  <td class="nm" title="LONGCARE MOBILITY 50G X 12">LONGCARE MOBILITY 50G X 12</td>
+  <td class="bs">R$&nbsp;96,31</td>
+  <td class="pv">R$&nbsp;157,55</td>
+  <td class="u1">R$&nbsp;90,29</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,02</s></td>
+  <td class="u2">R$&nbsp;80,26</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;16,05</s></td>
+  <td class="u3">R$&nbsp;72,23</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;24,08</s></td>
+</tr>
+<tr class="r " data-s="longcare nutrimun 250g 9626">
+  <td class="cd">9626</td>
+  <td class="nm" title="LONGCARE NUTRIMUN 250G">LONGCARE NUTRIMUN 250G</td>
+  <td class="bs">R$&nbsp;24,50</td>
+  <td class="pv">R$&nbsp;40,08</td>
+  <td class="u1">R$&nbsp;22,97</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;1,53</s></td>
+  <td class="u2">R$&nbsp;20,42</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;4,08</s></td>
+  <td class="u3">R$&nbsp;18,38</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;6,13</s></td>
+</tr>
+<tr class="r ev" data-s="longcare nutrimun 50g 9625">
+  <td class="cd">9625</td>
+  <td class="nm" title="LONGCARE NUTRIMUN 50G">LONGCARE NUTRIMUN 50G</td>
+  <td class="bs">R$&nbsp;8,03</td>
+  <td class="pv">R$&nbsp;13,13</td>
+  <td class="u1">R$&nbsp;7,52</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;0,50</s></td>
+  <td class="u2">R$&nbsp;6,69</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;1,34</s></td>
+  <td class="u3">R$&nbsp;6,02</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;2,01</s></td>
+</tr>
+<tr class="r " data-s="longcare nutrimun 50g x 12 9627">
+  <td class="cd">9627</td>
+  <td class="nm" title="LONGCARE NUTRIMUN 50G X 12">LONGCARE NUTRIMUN 50G X 12</td>
+  <td class="bs">R$&nbsp;96,31</td>
+  <td class="pv">R$&nbsp;157,55</td>
+  <td class="u1">R$&nbsp;90,29</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,02</s></td>
+  <td class="u2">R$&nbsp;80,26</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;16,05</s></td>
+  <td class="u3">R$&nbsp;72,23</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;24,08</s></td>
+</tr>
+<tr class="r ev" data-s="longcare prot hidrol 250g 9617">
+  <td class="cd">9617</td>
+  <td class="nm" title="LONGCARE PROT HIDROL 250G">LONGCARE PROT HIDROL 250G</td>
+  <td class="bs">R$&nbsp;26,40</td>
+  <td class="pv">R$&nbsp;43,19</td>
+  <td class="u1">R$&nbsp;24,75</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;1,65</s></td>
+  <td class="u2">R$&nbsp;22,00</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;4,40</s></td>
+  <td class="u3">R$&nbsp;19,80</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;6,60</s></td>
+</tr>
+<tr class="r " data-s="longcare prot hidrol 50g 9616">
+  <td class="cd">9616</td>
+  <td class="nm" title="LONGCARE PROT HIDROL 50G">LONGCARE PROT HIDROL 50G</td>
+  <td class="bs">R$&nbsp;9,23</td>
+  <td class="pv">R$&nbsp;15,10</td>
+  <td class="u1">R$&nbsp;8,65</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;0,58</s></td>
+  <td class="u2">R$&nbsp;7,69</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;1,54</s></td>
+  <td class="u3">R$&nbsp;6,92</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;2,31</s></td>
+</tr>
+<tr class="r ev" data-s="longcare prot hidrol 50g x 12 9618">
+  <td class="cd">9618</td>
+  <td class="nm" title="LONGCARE PROT HIDROL 50G X 12">LONGCARE PROT HIDROL 50G X 12</td>
+  <td class="bs">R$&nbsp;110,74</td>
+  <td class="pv">R$&nbsp;181,16</td>
+  <td class="u1">R$&nbsp;103,82</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,92</s></td>
+  <td class="u2">R$&nbsp;92,29</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;18,46</s></td>
+  <td class="u3">R$&nbsp;83,06</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;27,69</s></td>
+</tr>
+<tr class="r " data-s="longcare salm e tilap 250g 9614">
+  <td class="cd">9614</td>
+  <td class="nm" title="LONGCARE SALM E TILAP 250G">LONGCARE SALM E TILAP 250G</td>
+  <td class="bs">R$&nbsp;24,50</td>
+  <td class="pv">R$&nbsp;40,08</td>
+  <td class="u1">R$&nbsp;22,97</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;1,53</s></td>
+  <td class="u2">R$&nbsp;20,42</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;4,08</s></td>
+  <td class="u3">R$&nbsp;18,38</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;6,13</s></td>
+</tr>
+<tr class="r ev" data-s="longcare salm e tilap 50g 9613">
+  <td class="cd">9613</td>
+  <td class="nm" title="LONGCARE SALM E TILAP 50G">LONGCARE SALM E TILAP 50G</td>
+  <td class="bs">R$&nbsp;8,03</td>
+  <td class="pv">R$&nbsp;13,13</td>
+  <td class="u1">R$&nbsp;7,52</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;0,50</s></td>
+  <td class="u2">R$&nbsp;6,69</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;1,34</s></td>
+  <td class="u3">R$&nbsp;6,02</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;2,01</s></td>
+</tr>
+<tr class="r " data-s="longcare salm e tilap 50g x 12 9615">
+  <td class="cd">9615</td>
+  <td class="nm" title="LONGCARE SALM E TILAP 50G X 12">LONGCARE SALM E TILAP 50G X 12</td>
+  <td class="bs">R$&nbsp;96,31</td>
+  <td class="pv">R$&nbsp;157,55</td>
+  <td class="u1">R$&nbsp;90,29</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,02</s></td>
+  <td class="u2">R$&nbsp;80,26</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;16,05</s></td>
+  <td class="u3">R$&nbsp;72,23</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;24,08</s></td>
+</tr>
+<tr class="r ev" data-s="longcare zen 250g 9629">
+  <td class="cd">9629</td>
+  <td class="nm" title="LONGCARE ZEN 250G">LONGCARE ZEN 250G</td>
+  <td class="bs">R$&nbsp;24,50</td>
+  <td class="pv">R$&nbsp;40,08</td>
+  <td class="u1">R$&nbsp;22,97</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;1,53</s></td>
+  <td class="u2">R$&nbsp;20,42</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;4,08</s></td>
+  <td class="u3">R$&nbsp;18,38</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;6,13</s></td>
+</tr>
+<tr class="r " data-s="longcare zen 50g 9628">
+  <td class="cd">9628</td>
+  <td class="nm" title="LONGCARE ZEN 50G">LONGCARE ZEN 50G</td>
+  <td class="bs">R$&nbsp;8,03</td>
+  <td class="pv">R$&nbsp;13,13</td>
+  <td class="u1">R$&nbsp;7,52</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;0,50</s></td>
+  <td class="u2">R$&nbsp;6,69</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;1,34</s></td>
+  <td class="u3">R$&nbsp;6,02</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;2,01</s></td>
+</tr>
+<tr class="r ev" data-s="longcare zen 50g x 12 9630">
+  <td class="cd">9630</td>
+  <td class="nm" title="LONGCARE ZEN 50G X 12">LONGCARE ZEN 50G X 12</td>
+  <td class="bs">R$&nbsp;96,31</td>
+  <td class="pv">R$&nbsp;157,55</td>
+  <td class="u1">R$&nbsp;90,29</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,02</s></td>
+  <td class="u2">R$&nbsp;80,26</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;16,05</s></td>
+  <td class="u3">R$&nbsp;72,23</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;24,08</s></td>
+</tr>
+<tr class="r " data-s="macrogard pasta x 60 g 21020">
+  <td class="cd">21020</td>
+  <td class="nm" title="MACROGARD PASTA X 60 G">MACROGARD PASTA X 60 G</td>
+  <td class="bs">R$&nbsp;77,55</td>
+  <td class="pv">R$&nbsp;121,55</td>
+  <td class="u1">R$&nbsp;72,70</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,85</s></td>
+  <td class="u2">R$&nbsp;64,62</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;12,92</s></td>
+  <td class="u3">R$&nbsp;58,16</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;19,39</s></td>
+</tr>
+<tr class="r ev" data-s="macrogard pet 2797">
+  <td class="cd">2797</td>
+  <td class="nm" title="MACROGARD PET">MACROGARD PET</td>
+  <td class="bs">R$&nbsp;114,88</td>
+  <td class="pv">R$&nbsp;180,05</td>
+  <td class="u1">R$&nbsp;107,70</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;7,18</s></td>
+  <td class="u2">R$&nbsp;95,73</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;19,15</s></td>
+  <td class="u3">R$&nbsp;86,16</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;28,72</s></td>
+</tr>
+<tr class="r " data-s="macrogard pet small size 2796">
+  <td class="cd">2796</td>
+  <td class="nm" title="MACROGARD PET SMALL SIZE">MACROGARD PET SMALL SIZE</td>
+  <td class="bs">R$&nbsp;70,35</td>
+  <td class="pv">R$&nbsp;110,27</td>
+  <td class="u1">R$&nbsp;65,96</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,40</s></td>
+  <td class="u2">R$&nbsp;58,63</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;11,73</s></td>
+  <td class="u3">R$&nbsp;52,76</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;17,59</s></td>
+</tr>
+<tr class="r ev" data-s="macrogard sticks x 30 bastões 2784">
+  <td class="cd">2784</td>
+  <td class="nm" title="MACROGARD STICKS X 30 BASTÕES">MACROGARD STICKS X 30 BASTÕES</td>
+  <td class="bs">R$&nbsp;125,35</td>
+  <td class="pv">R$&nbsp;196,47</td>
+  <td class="u1">R$&nbsp;117,52</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;7,83</s></td>
+  <td class="u2">R$&nbsp;104,46</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;20,89</s></td>
+  <td class="u3">R$&nbsp;94,01</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;31,34</s></td>
+</tr>
+<tr class="r " data-s="mellis vet 0,2 mg com x 10 2798">
+  <td class="cd">2798</td>
+  <td class="nm" title="MELLIS VET 0,2 MG COM X 10">MELLIS VET 0,2 MG COM X 10</td>
+  <td class="bs">R$&nbsp;13,53</td>
+  <td class="pv">R$&nbsp;21,21</td>
+  <td class="u1">R$&nbsp;12,69</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;0,85</s></td>
+  <td class="u2">R$&nbsp;11,28</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;2,26</s></td>
+  <td class="u3">R$&nbsp;10,15</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;3,38</s></td>
+</tr>
+<tr class="r ev" data-s="mellis vet 0,5 mg com x 10 2971">
+  <td class="cd">2971</td>
+  <td class="nm" title="MELLIS VET 0,5 MG COM X 10">MELLIS VET 0,5 MG COM X 10</td>
+  <td class="bs">R$&nbsp;21,98</td>
+  <td class="pv">R$&nbsp;34,45</td>
+  <td class="u1">R$&nbsp;20,60</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;1,37</s></td>
+  <td class="u2">R$&nbsp;18,31</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;3,66</s></td>
+  <td class="u3">R$&nbsp;16,48</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;5,49</s></td>
+</tr>
+<tr class="r " data-s="mellis vet 2mg com x 10 2972">
+  <td class="cd">2972</td>
+  <td class="nm" title="MELLIS VET 2MG COM X 10">MELLIS VET 2MG COM X 10</td>
+  <td class="bs">R$&nbsp;34,05</td>
+  <td class="pv">R$&nbsp;53,37</td>
+  <td class="u1">R$&nbsp;31,92</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;2,13</s></td>
+  <td class="u2">R$&nbsp;28,37</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;5,67</s></td>
+  <td class="u3">R$&nbsp;25,54</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;8,51</s></td>
+</tr>
+<tr class="r ev" data-s="mellis vet 3mg com x 10 2974">
+  <td class="cd">2974</td>
+  <td class="nm" title="MELLIS VET 3MG COM X 10">MELLIS VET 3MG COM X 10</td>
+  <td class="bs">R$&nbsp;37,78</td>
+  <td class="pv">R$&nbsp;59,22</td>
+  <td class="u1">R$&nbsp;35,42</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;2,36</s></td>
+  <td class="u2">R$&nbsp;31,48</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;6,30</s></td>
+  <td class="u3">R$&nbsp;28,34</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;9,45</s></td>
+</tr>
+<tr class="r " data-s="mellis vet 4mg com x 10 2973">
+  <td class="cd">2973</td>
+  <td class="nm" title="MELLIS VET 4MG COM X 10">MELLIS VET 4MG COM X 10</td>
+  <td class="bs">R$&nbsp;42,01</td>
+  <td class="pv">R$&nbsp;65,85</td>
+  <td class="u1">R$&nbsp;39,39</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;2,63</s></td>
+  <td class="u2">R$&nbsp;35,01</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;7,00</s></td>
+  <td class="u3">R$&nbsp;31,51</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;10,50</s></td>
+</tr>
+<tr class="r ev" data-s="noxxi atp shampoo x 200 ml 2832">
+  <td class="cd">2832</td>
+  <td class="nm" title="NOXXI ATP SHAMPOO X 200 ML">NOXXI ATP SHAMPOO X 200 ML</td>
+  <td class="bs">R$&nbsp;77,62</td>
+  <td class="pv">R$&nbsp;121,66</td>
+  <td class="u1">R$&nbsp;72,77</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,85</s></td>
+  <td class="u2">R$&nbsp;64,69</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;12,94</s></td>
+  <td class="u3">R$&nbsp;58,22</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;19,41</s></td>
+</tr>
+<tr class="r " data-s="noxxi atp shampoo x 500 ml 21013">
+  <td class="cd">21013</td>
+  <td class="nm" title="NOXXI ATP SHAMPOO X 500 ML">NOXXI ATP SHAMPOO X 500 ML</td>
+  <td class="bs">R$&nbsp;141,89</td>
+  <td class="pv">R$&nbsp;222,39</td>
+  <td class="u1">R$&nbsp;133,02</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;8,87</s></td>
+  <td class="u2">R$&nbsp;118,24</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;23,65</s></td>
+  <td class="u3">R$&nbsp;106,42</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;35,47</s></td>
+</tr>
+<tr class="r ev" data-s="noxxi control shampoo x 200 ml 2834">
+  <td class="cd">2834</td>
+  <td class="nm" title="NOXXI CONTROL SHAMPOO X 200 ML">NOXXI CONTROL SHAMPOO X 200 ML</td>
+  <td class="bs">R$&nbsp;83,50</td>
+  <td class="pv">R$&nbsp;130,87</td>
+  <td class="u1">R$&nbsp;78,28</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;5,22</s></td>
+  <td class="u2">R$&nbsp;69,58</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;13,92</s></td>
+  <td class="u3">R$&nbsp;62,63</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;20,88</s></td>
+</tr>
+<tr class="r " data-s="noxxi wall spray x 200 ml 2835">
+  <td class="cd">2835</td>
+  <td class="nm" title="NOXXI WALL SPRAY X 200 ML">NOXXI WALL SPRAY X 200 ML</td>
+  <td class="bs">R$&nbsp;110,10</td>
+  <td class="pv">R$&nbsp;172,56</td>
+  <td class="u1">R$&nbsp;103,22</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,88</s></td>
+  <td class="u2">R$&nbsp;91,75</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;18,35</s></td>
+  <td class="u3">R$&nbsp;82,57</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;27,52</s></td>
+</tr>
+<tr class="r ev" data-s="nutrapet po x 300g 2745">
+  <td class="cd">2745</td>
+  <td class="nm" title="NUTRAPET PO X 300G">NUTRAPET PO X 300G</td>
+  <td class="bs">R$&nbsp;115,05</td>
+  <td class="pv">R$&nbsp;180,32</td>
+  <td class="u1">R$&nbsp;107,86</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;7,19</s></td>
+  <td class="u2">R$&nbsp;95,87</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;19,17</s></td>
+  <td class="u3">R$&nbsp;86,29</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;28,76</s></td>
+</tr>
+<tr class="r " data-s="oat care shamp x 200 ml 2780">
+  <td class="cd">2780</td>
+  <td class="nm" title="OAT CARE SHAMP X 200 ML">OAT CARE SHAMP X 200 ML</td>
+  <td class="bs">R$&nbsp;91,31</td>
+  <td class="pv">R$&nbsp;143,11</td>
+  <td class="u1">R$&nbsp;85,60</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;5,71</s></td>
+  <td class="u2">R$&nbsp;76,09</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;15,22</s></td>
+  <td class="u3">R$&nbsp;68,48</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;22,83</s></td>
+</tr>
+<tr class="r ev" data-s="oat care shamp x 500ml 21012">
+  <td class="cd">21012</td>
+  <td class="nm" title="OAT CARE SHAMP X 500ML">OAT CARE SHAMP X 500ML</td>
+  <td class="bs">R$&nbsp;176,54</td>
+  <td class="pv">R$&nbsp;276,70</td>
+  <td class="u1">R$&nbsp;165,51</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;11,03</s></td>
+  <td class="u2">R$&nbsp;147,12</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;29,42</s></td>
+  <td class="u3">R$&nbsp;132,40</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;44,13</s></td>
+</tr>
+<tr class="r " data-s="oat care sol otolog x 100 ml 2778">
+  <td class="cd">2778</td>
+  <td class="nm" title="OAT CARE SOL OTOLOG X 100 ML">OAT CARE SOL OTOLOG X 100 ML</td>
+  <td class="bs">R$&nbsp;51,45</td>
+  <td class="pv">R$&nbsp;80,64</td>
+  <td class="u1">R$&nbsp;48,23</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;3,22</s></td>
+  <td class="u2">R$&nbsp;42,87</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;8,57</s></td>
+  <td class="u3">R$&nbsp;38,59</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;12,86</s></td>
+</tr>
+<tr class="r ev" data-s="oat care sol spray x 200 ml 2779">
+  <td class="cd">2779</td>
+  <td class="nm" title="OAT CARE SOL SPRAY X 200 ML">OAT CARE SOL SPRAY X 200 ML</td>
+  <td class="bs">R$&nbsp;97,18</td>
+  <td class="pv">R$&nbsp;152,32</td>
+  <td class="u1">R$&nbsp;91,11</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,07</s></td>
+  <td class="u2">R$&nbsp;80,99</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;16,20</s></td>
+  <td class="u3">R$&nbsp;72,89</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;24,30</s></td>
+</tr>
+<tr class="r " data-s="oat care sol spray x 500ml 21011">
+  <td class="cd">21011</td>
+  <td class="nm" title="OAT CARE SOL SPRAY X 500ML">OAT CARE SOL SPRAY X 500ML</td>
+  <td class="bs">R$&nbsp;189,81</td>
+  <td class="pv">R$&nbsp;297,50</td>
+  <td class="u1">R$&nbsp;177,95</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;11,86</s></td>
+  <td class="u2">R$&nbsp;158,18</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;31,64</s></td>
+  <td class="u3">R$&nbsp;142,36</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;47,45</s></td>
+</tr>
+<tr class="r ev" data-s="ograx artro 10 cap x 30 2916">
+  <td class="cd">2916</td>
+  <td class="nm" title="OGRAX ARTRO 10 CAP X 30">OGRAX ARTRO 10 CAP X 30</td>
+  <td class="bs">R$&nbsp;166,95</td>
+  <td class="pv">R$&nbsp;261,67</td>
+  <td class="u1">R$&nbsp;156,51</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;10,43</s></td>
+  <td class="u2">R$&nbsp;139,12</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;27,82</s></td>
+  <td class="u3">R$&nbsp;125,21</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;41,74</s></td>
+</tr>
+<tr class="r " data-s="ograx artro 5 cap x 30 21026">
+  <td class="cd">21026</td>
+  <td class="nm" title="OGRAX ARTRO 5 CAP X 30">OGRAX ARTRO 5 CAP X 30</td>
+  <td class="bs">R$&nbsp;150,25</td>
+  <td class="pv">R$&nbsp;235,49</td>
+  <td class="u1">R$&nbsp;140,86</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;9,39</s></td>
+  <td class="u2">R$&nbsp;125,21</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;25,04</s></td>
+  <td class="u3">R$&nbsp;112,69</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;37,56</s></td>
+</tr>
+<tr class="r ev" data-s="ograx artro 20 cap x 30 2969">
+  <td class="cd">2969</td>
+  <td class="nm" title="OGRAX ARTRO 20 CAP X 30">OGRAX ARTRO 20 CAP X 30</td>
+  <td class="bs">R$&nbsp;202,72</td>
+  <td class="pv">R$&nbsp;317,74</td>
+  <td class="u1">R$&nbsp;190,05</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;12,67</s></td>
+  <td class="u2">R$&nbsp;168,94</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;33,79</s></td>
+  <td class="u3">R$&nbsp;152,04</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;50,68</s></td>
+</tr>
+<tr class="r " data-s="ograx baby sol or x 30 ml 21144">
+  <td class="cd">21144</td>
+  <td class="nm" title="OGRAX BABY SOL OR X 30 ML">OGRAX BABY SOL OR X 30 ML</td>
+  <td class="bs">R$&nbsp;77,19</td>
+  <td class="pv">R$&nbsp;120,98</td>
+  <td class="u1">R$&nbsp;72,36</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,82</s></td>
+  <td class="u2">R$&nbsp;64,32</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;12,86</s></td>
+  <td class="u3">R$&nbsp;57,89</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;19,30</s></td>
+</tr>
+<tr class="r ev" data-s="ograx cell 15 cap x 30 21237">
+  <td class="cd">21237</td>
+  <td class="nm" title="OGRAX CELL 15 CAP X 30">OGRAX CELL 15 CAP X 30</td>
+  <td class="bs">R$&nbsp;144,60</td>
+  <td class="pv">R$&nbsp;226,65</td>
+  <td class="u1">R$&nbsp;135,57</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;9,04</s></td>
+  <td class="u2">R$&nbsp;120,50</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;24,10</s></td>
+  <td class="u3">R$&nbsp;108,45</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;36,15</s></td>
+</tr>
+<tr class="r " data-s="ograx cell 5 cap x 30 21236">
+  <td class="cd">21236</td>
+  <td class="nm" title="OGRAX CELL 5 CAP X 30">OGRAX CELL 5 CAP X 30</td>
+  <td class="bs">R$&nbsp;48,21</td>
+  <td class="pv">R$&nbsp;75,56</td>
+  <td class="u1">R$&nbsp;45,19</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;3,01</s></td>
+  <td class="u2">R$&nbsp;40,17</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;8,03</s></td>
+  <td class="u3">R$&nbsp;36,16</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;12,05</s></td>
+</tr>
+<tr class="r ev" data-s="ograx derme 10 x 30 cap 2968">
+  <td class="cd">2968</td>
+  <td class="nm" title="OGRAX DERME 10 X 30 CAP">OGRAX DERME 10 X 30 CAP</td>
+  <td class="bs">R$&nbsp;88,49</td>
+  <td class="pv">R$&nbsp;138,70</td>
+  <td class="u1">R$&nbsp;82,96</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;5,53</s></td>
+  <td class="u2">R$&nbsp;73,74</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;14,75</s></td>
+  <td class="u3">R$&nbsp;66,37</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;22,12</s></td>
+</tr>
+<tr class="r " data-s="ograx derme 20 x 30 cap 2967">
+  <td class="cd">2967</td>
+  <td class="nm" title="OGRAX DERME 20 X 30 CAP">OGRAX DERME 20 X 30 CAP</td>
+  <td class="bs">R$&nbsp;149,60</td>
+  <td class="pv">R$&nbsp;234,47</td>
+  <td class="u1">R$&nbsp;140,25</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;9,35</s></td>
+  <td class="u2">R$&nbsp;124,66</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;24,93</s></td>
+  <td class="u3">R$&nbsp;112,20</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;37,40</s></td>
+</tr>
+<tr class="r ev" data-s="ograx gatos x 30 2760">
+  <td class="cd">2760</td>
+  <td class="nm" title="OGRAX GATOS X 30">OGRAX GATOS X 30</td>
+  <td class="bs">R$&nbsp;72,88</td>
+  <td class="pv">R$&nbsp;114,22</td>
+  <td class="u1">R$&nbsp;68,32</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,55</s></td>
+  <td class="u2">R$&nbsp;60,73</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;12,15</s></td>
+  <td class="u3">R$&nbsp;54,66</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;18,22</s></td>
+</tr>
+<tr class="r " data-s="ograx plus 15 cap x 30 21179">
+  <td class="cd">21179</td>
+  <td class="nm" title="OGRAX PLUS 15 CAP X 30">OGRAX PLUS 15 CAP X 30</td>
+  <td class="bs">R$&nbsp;118,60</td>
+  <td class="pv">R$&nbsp;185,89</td>
+  <td class="u1">R$&nbsp;111,19</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;7,41</s></td>
+  <td class="u2">R$&nbsp;98,83</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;19,77</s></td>
+  <td class="u3">R$&nbsp;88,95</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;29,65</s></td>
+</tr>
+<tr class="r ev" data-s="ograx plus 5 cap x 30 21178">
+  <td class="cd">21178</td>
+  <td class="nm" title="OGRAX PLUS 5 CAP X 30">OGRAX PLUS 5 CAP X 30</td>
+  <td class="bs">R$&nbsp;83,52</td>
+  <td class="pv">R$&nbsp;130,90</td>
+  <td class="u1">R$&nbsp;78,30</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;5,22</s></td>
+  <td class="u2">R$&nbsp;69,60</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;13,92</s></td>
+  <td class="u3">R$&nbsp;62,64</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;20,88</s></td>
+</tr>
+<tr class="r " data-s="ograx senior 10 cap x 30 21240">
+  <td class="cd">21240</td>
+  <td class="nm" title="OGRAX SENIOR 10 CAP X 30">OGRAX SENIOR 10 CAP X 30</td>
+  <td class="bs">R$&nbsp;124,21</td>
+  <td class="pv">R$&nbsp;194,68</td>
+  <td class="u1">R$&nbsp;116,44</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;7,76</s></td>
+  <td class="u2">R$&nbsp;103,51</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;20,70</s></td>
+  <td class="u3">R$&nbsp;93,16</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;31,05</s></td>
+</tr>
+<tr class="r ev" data-s="ograx senior 5 cap x 30 21238">
+  <td class="cd">21238</td>
+  <td class="nm" title="OGRAX SENIOR 5 CAP X 30">OGRAX SENIOR 5 CAP X 30</td>
+  <td class="bs">R$&nbsp;62,39</td>
+  <td class="pv">R$&nbsp;97,78</td>
+  <td class="u1">R$&nbsp;58,49</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;3,90</s></td>
+  <td class="u2">R$&nbsp;51,99</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;10,40</s></td>
+  <td class="u3">R$&nbsp;46,79</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;15,60</s></td>
+</tr>
+<tr class="r " data-s="ograx-3 1000 mg 2825">
+  <td class="cd">2825</td>
+  <td class="nm" title="OGRAX-3 1000 MG">OGRAX-3 1000 MG</td>
+  <td class="bs">R$&nbsp;98,22</td>
+  <td class="pv">R$&nbsp;153,94</td>
+  <td class="u1">R$&nbsp;92,08</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,14</s></td>
+  <td class="u2">R$&nbsp;81,85</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;16,37</s></td>
+  <td class="u3">R$&nbsp;73,66</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;24,55</s></td>
+</tr>
+<tr class="r ev" data-s="ograx-3 1500 2826">
+  <td class="cd">2826</td>
+  <td class="nm" title="OGRAX-3 1500">OGRAX-3 1500</td>
+  <td class="bs">R$&nbsp;135,13</td>
+  <td class="pv">R$&nbsp;211,79</td>
+  <td class="u1">R$&nbsp;126,68</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;8,45</s></td>
+  <td class="u2">R$&nbsp;112,60</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;22,52</s></td>
+  <td class="u3">R$&nbsp;101,34</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;33,78</s></td>
+</tr>
+<tr class="r " data-s="ograx-3 500 mg 2824">
+  <td class="cd">2824</td>
+  <td class="nm" title="OGRAX-3 500 MG">OGRAX-3 500 MG</td>
+  <td class="bs">R$&nbsp;69,40</td>
+  <td class="pv">R$&nbsp;108,78</td>
+  <td class="u1">R$&nbsp;65,07</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,34</s></td>
+  <td class="u2">R$&nbsp;57,84</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;11,57</s></td>
+  <td class="u3">R$&nbsp;52,05</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;17,35</s></td>
+</tr>
+<tr class="r ev" data-s="ograx-3 500 mg x 90 cap 2100">
+  <td class="cd">2100</td>
+  <td class="nm" title="OGRAX-3 500 MG X 90 CAP">OGRAX-3 500 MG X 90 CAP</td>
+  <td class="bs">R$&nbsp;143,25</td>
+  <td class="pv">R$&nbsp;224,53</td>
+  <td class="u1">R$&nbsp;134,30</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;8,95</s></td>
+  <td class="u2">R$&nbsp;119,38</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;23,88</s></td>
+  <td class="u3">R$&nbsp;107,44</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;35,81</s></td>
+</tr>
+<tr class="r " data-s="pet protein po x 300g 2744">
+  <td class="cd">2744</td>
+  <td class="nm" title="PET PROTEIN PO X 300G">PET PROTEIN PO X 300G</td>
+  <td class="bs">R$&nbsp;94,09</td>
+  <td class="pv">R$&nbsp;147,47</td>
+  <td class="u1">R$&nbsp;88,21</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;5,88</s></td>
+  <td class="u2">R$&nbsp;78,41</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;15,68</s></td>
+  <td class="u3">R$&nbsp;70,56</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;23,52</s></td>
+</tr>
+<tr class="r ev" data-s="probiótico pet  disp x 12 2822">
+  <td class="cd">2822</td>
+  <td class="nm" title="PROBIÓTICO PET  DISP X 12">PROBIÓTICO PET  DISP X 12</td>
+  <td class="bs">R$&nbsp;349,56</td>
+  <td class="pv">R$&nbsp;547,88</td>
+  <td class="u1">R$&nbsp;327,71</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;21,85</s></td>
+  <td class="u2">R$&nbsp;291,30</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;58,26</s></td>
+  <td class="u3">R$&nbsp;262,17</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;87,39</s></td>
+</tr>
+<tr class="r " data-s="probiótico pet  disp 14g 2823">
+  <td class="cd">2823</td>
+  <td class="nm" title="PROBIÓTICO PET  DISP 14G">PROBIÓTICO PET  DISP 14G</td>
+  <td class="bs">R$&nbsp;29,13</td>
+  <td class="pv">R$&nbsp;102,97</td>
+  <td class="u1">R$&nbsp;27,31</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;1,82</s></td>
+  <td class="u2">R$&nbsp;24,28</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;4,86</s></td>
+  <td class="u3">R$&nbsp;21,85</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;7,28</s></td>
+</tr>
+<tr class="r ev" data-s="queranon cap x 30 2837">
+  <td class="cd">2837</td>
+  <td class="nm" title="QUERANON CAP X 30">QUERANON CAP X 30</td>
+  <td class="bs">R$&nbsp;65,70</td>
+  <td class="pv">R$&nbsp;102,97</td>
+  <td class="u1">R$&nbsp;61,59</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,11</s></td>
+  <td class="u2">R$&nbsp;54,75</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;10,95</s></td>
+  <td class="u3">R$&nbsp;49,27</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;16,42</s></td>
+</tr>
+<tr class="r " data-s="queranon comp x 30 2995">
+  <td class="cd">2995</td>
+  <td class="nm" title="QUERANON COMP X 30">QUERANON COMP X 30</td>
+  <td class="bs">R$&nbsp;78,47</td>
+  <td class="pv">R$&nbsp;122,98</td>
+  <td class="u1">R$&nbsp;73,56</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,90</s></td>
+  <td class="u2">R$&nbsp;65,39</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;13,08</s></td>
+  <td class="u3">R$&nbsp;58,85</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;19,62</s></td>
+</tr>
+<tr class="r ev" data-s="queranon lb com x 30 2899">
+  <td class="cd">2899</td>
+  <td class="nm" title="QUERANON LB COM X 30">QUERANON LB COM X 30</td>
+  <td class="bs">R$&nbsp;108,23</td>
+  <td class="pv">R$&nbsp;169,64</td>
+  <td class="u1">R$&nbsp;101,47</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,76</s></td>
+  <td class="u2">R$&nbsp;90,19</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;18,04</s></td>
+  <td class="u3">R$&nbsp;81,17</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;27,06</s></td>
+</tr>
+<tr class="r " data-s="queranon pasta x 70 g 2915">
+  <td class="cd">2915</td>
+  <td class="nm" title="QUERANON PASTA X 70 G">QUERANON PASTA X 70 G</td>
+  <td class="bs">R$&nbsp;73,80</td>
+  <td class="pv">R$&nbsp;115,67</td>
+  <td class="u1">R$&nbsp;69,19</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,61</s></td>
+  <td class="u2">R$&nbsp;61,50</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;12,30</s></td>
+  <td class="u3">R$&nbsp;55,35</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;18,45</s></td>
+</tr>
+<tr class="r ev" data-s="queranon small size x 30 cap 2838">
+  <td class="cd">2838</td>
+  <td class="nm" title="QUERANON SMALL SIZE X 30 CAP">QUERANON SMALL SIZE X 30 CAP</td>
+  <td class="bs">R$&nbsp;44,78</td>
+  <td class="pv">R$&nbsp;70,18</td>
+  <td class="u1">R$&nbsp;41,98</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;2,80</s></td>
+  <td class="u2">R$&nbsp;37,31</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;7,46</s></td>
+  <td class="u3">R$&nbsp;33,58</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;11,19</s></td>
+</tr>
+<tr class="r " data-s="queranon small size x 30 comp 2799">
+  <td class="cd">2799</td>
+  <td class="nm" title="QUERANON SMALL SIZE X 30 COMP">QUERANON SMALL SIZE X 30 COMP</td>
+  <td class="bs">R$&nbsp;53,47</td>
+  <td class="pv">R$&nbsp;83,81</td>
+  <td class="u1">R$&nbsp;50,13</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;3,34</s></td>
+  <td class="u2">R$&nbsp;44,56</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;8,91</s></td>
+  <td class="u3">R$&nbsp;40,11</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;13,37</s></td>
+</tr>
+<tr class="r ev" data-s="queranon sticks x 30 bastões 2783">
+  <td class="cd">2783</td>
+  <td class="nm" title="QUERANON STICKS X 30 BASTÕES">QUERANON STICKS X 30 BASTÕES</td>
+  <td class="bs">R$&nbsp;99,85</td>
+  <td class="pv">R$&nbsp;156,50</td>
+  <td class="u1">R$&nbsp;93,61</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,24</s></td>
+  <td class="u2">R$&nbsp;83,21</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;16,64</s></td>
+  <td class="u3">R$&nbsp;74,89</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;24,96</s></td>
+</tr>
+<tr class="r " data-s="quetin 10 x 60 2761">
+  <td class="cd">2761</td>
+  <td class="nm" title="QUETIN 10 X 60">QUETIN 10 X 60</td>
+  <td class="bs">R$&nbsp;91,40</td>
+  <td class="pv">R$&nbsp;143,25</td>
+  <td class="u1">R$&nbsp;85,68</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;5,71</s></td>
+  <td class="u2">R$&nbsp;76,16</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;15,23</s></td>
+  <td class="u3">R$&nbsp;68,55</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;22,85</s></td>
+</tr>
+<tr class="r ev" data-s="quetin 30 x 60 2737">
+  <td class="cd">2737</td>
+  <td class="nm" title="QUETIN 30 X 60">QUETIN 30 X 60</td>
+  <td class="bs">R$&nbsp;159,01</td>
+  <td class="pv">R$&nbsp;249,23</td>
+  <td class="u1">R$&nbsp;149,08</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;9,94</s></td>
+  <td class="u2">R$&nbsp;132,51</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;26,50</s></td>
+  <td class="u3">R$&nbsp;119,26</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;39,75</s></td>
+</tr>
+<tr class="r " data-s="refos derme 30 com x 30 21190">
+  <td class="cd">21190</td>
+  <td class="nm" title="REFOS DERME 30 COM X 30">REFOS DERME 30 COM X 30</td>
+  <td class="bs">R$&nbsp;100,49</td>
+  <td class="pv">R$&nbsp;157,50</td>
+  <td class="u1">R$&nbsp;94,21</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,28</s></td>
+  <td class="u2">R$&nbsp;83,74</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;16,75</s></td>
+  <td class="u3">R$&nbsp;75,37</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;25,12</s></td>
+</tr>
+<tr class="r ev" data-s="refos derme comp x 30 2740">
+  <td class="cd">2740</td>
+  <td class="nm" title="REFOS DERME COMP X 30">REFOS DERME COMP X 30</td>
+  <td class="bs">R$&nbsp;77,53</td>
+  <td class="pv">R$&nbsp;121,52</td>
+  <td class="u1">R$&nbsp;72,68</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,85</s></td>
+  <td class="u2">R$&nbsp;64,61</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;12,92</s></td>
+  <td class="u3">R$&nbsp;58,15</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;19,38</s></td>
+</tr>
+<tr class="r " data-s="sanus 100 mg x 30 21145">
+  <td class="cd">21145</td>
+  <td class="nm" title="SANUS 100 MG X 30">SANUS 100 MG X 30</td>
+  <td class="bs">R$&nbsp;101,46</td>
+  <td class="pv">R$&nbsp;159,02</td>
+  <td class="u1">R$&nbsp;95,12</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;6,34</s></td>
+  <td class="u2">R$&nbsp;84,55</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;16,91</s></td>
+  <td class="u3">R$&nbsp;76,09</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;25,36</s></td>
+</tr>
+<tr class="r ev" data-s="sanus 200 mg x 30 21164">
+  <td class="cd">21164</td>
+  <td class="nm" title="SANUS 200 MG X 30">SANUS 200 MG X 30</td>
+  <td class="bs">R$&nbsp;163,90</td>
+  <td class="pv">R$&nbsp;256,89</td>
+  <td class="u1">R$&nbsp;153,66</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;10,24</s></td>
+  <td class="u2">R$&nbsp;136,58</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;27,32</s></td>
+  <td class="u3">R$&nbsp;122,93</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;40,98</s></td>
+</tr>
+<tr class="r " data-s="sarcopen vet 2786">
+  <td class="cd">2786</td>
+  <td class="nm" title="SARCOPEN VET">SARCOPEN VET</td>
+  <td class="bs">R$&nbsp;163,34</td>
+  <td class="pv">R$&nbsp;256,01</td>
+  <td class="u1">R$&nbsp;153,13</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;10,21</s></td>
+  <td class="u2">R$&nbsp;136,12</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;27,22</s></td>
+  <td class="u3">R$&nbsp;122,50</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;40,83</s></td>
+</tr>
+<tr class="r ev" data-s="seniox t cap x 30 2991">
+  <td class="cd">2991</td>
+  <td class="nm" title="SENIOX T CAP X 30">SENIOX T CAP X 30</td>
+  <td class="bs">R$&nbsp;133,45</td>
+  <td class="pv">R$&nbsp;209,16</td>
+  <td class="u1">R$&nbsp;125,11</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;8,34</s></td>
+  <td class="u2">R$&nbsp;111,21</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;22,24</s></td>
+  <td class="u3">R$&nbsp;100,09</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;33,36</s></td>
+</tr>
+<tr class="r " data-s="serenlac 225 mg com x 15 21096">
+  <td class="cd">21096</td>
+  <td class="nm" title="SERENLAC 225 MG COM X 15">SERENLAC 225 MG COM X 15</td>
+  <td class="bs">R$&nbsp;121,91</td>
+  <td class="pv">R$&nbsp;191,07</td>
+  <td class="u1">R$&nbsp;114,29</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;7,62</s></td>
+  <td class="u2">R$&nbsp;101,59</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;20,32</s></td>
+  <td class="u3">R$&nbsp;91,43</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;30,48</s></td>
+</tr>
+<tr class="r ev" data-s="serenlac 225 mg com x 30 21097">
+  <td class="cd">21097</td>
+  <td class="nm" title="SERENLAC 225 MG COM X 30">SERENLAC 225 MG COM X 30</td>
+  <td class="bs">R$&nbsp;182,81</td>
+  <td class="pv">R$&nbsp;286,52</td>
+  <td class="u1">R$&nbsp;171,38</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;11,43</s></td>
+  <td class="u2">R$&nbsp;152,34</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;30,47</s></td>
+  <td class="u3">R$&nbsp;137,11</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;45,70</s></td>
+</tr>
+<tr class="r " data-s="serenlac 75 mg com x 30 21095">
+  <td class="cd">21095</td>
+  <td class="nm" title="SERENLAC 75 MG COM X 30">SERENLAC 75 MG COM X 30</td>
+  <td class="bs">R$&nbsp;93,90</td>
+  <td class="pv">R$&nbsp;147,18</td>
+  <td class="u1">R$&nbsp;88,03</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;5,87</s></td>
+  <td class="u2">R$&nbsp;78,25</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;15,65</s></td>
+  <td class="u3">R$&nbsp;70,43</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;23,48</s></td>
+</tr>
+<tr class="r ev" data-s="serenlac 75mg com x 15 21094">
+  <td class="cd">21094</td>
+  <td class="nm" title="SERENLAC 75MG COM X 15">SERENLAC 75MG COM X 15</td>
+  <td class="bs">R$&nbsp;62,53</td>
+  <td class="pv">R$&nbsp;98,00</td>
+  <td class="u1">R$&nbsp;58,62</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;3,91</s></td>
+  <td class="u2">R$&nbsp;52,11</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;10,42</s></td>
+  <td class="u3">R$&nbsp;46,90</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;15,63</s></td>
+</tr>
+<tr class="r " data-s="sindolor 250 mg/20mg com x 10 2731">
+  <td class="cd">2731</td>
+  <td class="nm" title="SINDOLOR 250 MG/20MG COM X 10">SINDOLOR 250 MG/20MG COM X 10</td>
+  <td class="bs">R$&nbsp;72,93</td>
+  <td class="pv">R$&nbsp;114,30</td>
+  <td class="u1">R$&nbsp;68,37</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,56</s></td>
+  <td class="u2">R$&nbsp;60,77</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;12,15</s></td>
+  <td class="u3">R$&nbsp;54,70</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;18,23</s></td>
+</tr>
+<tr class="r ev" data-s="sindolor 750 mg/60 mg com 10 3000">
+  <td class="cd">3000</td>
+  <td class="nm" title="SINDOLOR 750 MG/60 MG COM 10">SINDOLOR 750 MG/60 MG COM 10</td>
+  <td class="bs">R$&nbsp;86,97</td>
+  <td class="pv">R$&nbsp;136,32</td>
+  <td class="u1">R$&nbsp;81,54</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;5,44</s></td>
+  <td class="u2">R$&nbsp;72,48</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;14,50</s></td>
+  <td class="u3">R$&nbsp;65,23</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;21,74</s></td>
+</tr>
+<tr class="r " data-s="sindolor gatos 50/8mg comp 10 21120">
+  <td class="cd">21120</td>
+  <td class="nm" title="SINDOLOR GATOS 50/8MG COMP 10">SINDOLOR GATOS 50/8MG COMP 10</td>
+  <td class="bs">R$&nbsp;51,83</td>
+  <td class="pv">R$&nbsp;81,24</td>
+  <td class="u1">R$&nbsp;48,59</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;3,24</s></td>
+  <td class="u2">R$&nbsp;43,19</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;8,64</s></td>
+  <td class="u3">R$&nbsp;38,88</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;12,96</s></td>
+</tr>
+<tr class="r ev" data-s="torzemin 2 mg com x 30 2975">
+  <td class="cd">2975</td>
+  <td class="nm" title="TORZEMIN 2 MG COM X 30">TORZEMIN 2 MG COM X 30</td>
+  <td class="bs">R$&nbsp;37,28</td>
+  <td class="pv">R$&nbsp;58,43</td>
+  <td class="u1">R$&nbsp;34,95</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;2,33</s></td>
+  <td class="u2">R$&nbsp;31,06</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;6,21</s></td>
+  <td class="u3">R$&nbsp;27,96</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;9,32</s></td>
+</tr>
+<tr class="r " data-s="torzemin 4 mg com x 30 2976">
+  <td class="cd">2976</td>
+  <td class="nm" title="TORZEMIN 4 MG COM X 30">TORZEMIN 4 MG COM X 30</td>
+  <td class="bs">R$&nbsp;51,81</td>
+  <td class="pv">R$&nbsp;81,21</td>
+  <td class="u1">R$&nbsp;48,57</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;3,24</s></td>
+  <td class="u2">R$&nbsp;43,18</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;8,64</s></td>
+  <td class="u3">R$&nbsp;38,86</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;12,95</s></td>
+</tr>
+<tr class="r ev" data-s="up flora cap x 30 21239">
+  <td class="cd">21239</td>
+  <td class="nm" title="UP FLORA CAP X 30">UP FLORA CAP X 30</td>
+  <td class="bs">R$&nbsp;204,16</td>
+  <td class="pv">R$&nbsp;319,99</td>
+  <td class="u1">R$&nbsp;191,40</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;12,76</s></td>
+  <td class="u2">R$&nbsp;170,14</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;34,03</s></td>
+  <td class="u3">R$&nbsp;153,12</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;51,04</s></td>
+</tr>
+<tr class="r " data-s="up flora cap x 8 21042">
+  <td class="cd">21042</td>
+  <td class="nm" title="UP FLORA CAP X 8">UP FLORA CAP X 8</td>
+  <td class="bs">R$&nbsp;89,59</td>
+  <td class="pv">R$&nbsp;140,43</td>
+  <td class="u1">R$&nbsp;83,99</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;5,60</s></td>
+  <td class="u2">R$&nbsp;74,66</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;14,93</s></td>
+  <td class="u3">R$&nbsp;67,20</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;22,40</s></td>
+</tr>
+<tr class="r ev" data-s="up flora mini cap x 8 21191">
+  <td class="cd">21191</td>
+  <td class="nm" title="UP FLORA MINI CAP X 8">UP FLORA MINI CAP X 8</td>
+  <td class="bs">R$&nbsp;58,40</td>
+  <td class="pv">R$&nbsp;91,54</td>
+  <td class="u1">R$&nbsp;54,75</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;3,65</s></td>
+  <td class="u2">R$&nbsp;48,67</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;9,73</s></td>
+  <td class="u3">R$&nbsp;43,80</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;14,60</s></td>
+</tr>
+<tr class="r " data-s="up flora mini caps x 30 21192">
+  <td class="cd">21192</td>
+  <td class="nm" title="UP FLORA MINI CAPS X 30">UP FLORA MINI CAPS X 30</td>
+  <td class="bs">R$&nbsp;143,56</td>
+  <td class="pv">R$&nbsp;225,00</td>
+  <td class="u1">R$&nbsp;134,58</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;8,97</s></td>
+  <td class="u2">R$&nbsp;119,63</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;23,93</s></td>
+  <td class="u3">R$&nbsp;107,67</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;35,89</s></td>
+</tr>
+<tr class="r ev" data-s="vitecol comp x 30 2961">
+  <td class="cd">2961</td>
+  <td class="nm" title="VITECOL COMP X 30">VITECOL COMP X 30</td>
+  <td class="bs">R$&nbsp;72,22</td>
+  <td class="pv">R$&nbsp;113,19</td>
+  <td class="u1">R$&nbsp;67,71</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;4,51</s></td>
+  <td class="u2">R$&nbsp;60,18</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;12,04</s></td>
+  <td class="u3">R$&nbsp;54,16</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;18,05</s></td>
+</tr>
+<tr class="r " data-s="vonau vet 5 mg/ml sol or x 30 ml 2895">
+  <td class="cd">2895</td>
+  <td class="nm" title="VONAU VET 5 MG/ML SOL OR X 30 ML">VONAU VET 5 MG/ML SOL OR X 30 ML</td>
+  <td class="bs">R$&nbsp;59,58</td>
+  <td class="pv">R$&nbsp;93,39</td>
+  <td class="u1">R$&nbsp;55,86</td>
+  <td class="d1"><b>-6,25 %</b><s>-R$&nbsp;3,72</s></td>
+  <td class="u2">R$&nbsp;49,65</td>
+  <td class="d2"><b>-16,67 %</b><s>-R$&nbsp;9,93</s></td>
+  <td class="u3">R$&nbsp;44,69</td>
+  <td class="d3"><b>-25,00 %</b><s>-R$&nbsp;14,90</s></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="foot">
+  <span>TBPR AVERT SC — Condições Comerciais — 05/03/2026</span>
+  <div class="fr">
+    <div class="fc"><div class="fd" style="background:#059669"></div>15+1 → -6,25%</div>
+    <div class="fc"><div class="fd" style="background:#2563EB"></div>25+5 → -16,67%</div>
+    <div class="fc"><div class="fd" style="background:#7C3AED"></div>30+10 → -25,00%</div>
+  </div>
+</div>
+
+<script>
+var rows=document.querySelectorAll('tr.r');
+var total=136;
+function search(q){
+  q=q.trim().toLowerCase();
+  var vis=0;
+  rows.forEach(function(r){
+    var match=!q||r.dataset.s.includes(q);
+    r.classList.toggle('hidden',!match);
+    if(match)vis++;
+  });
+  document.getElementById('vc').textContent=vis;
+  document.getElementById('ct').textContent=vis+' produto'+(vis!==1?'s':'')+(q?' · filtrado por "'+q+'"':'');
+  document.getElementById('qx').style.display=q?'block':'none';
+}
+document.getElementById('qi').addEventListener('input',function(e){search(e.target.value);});
+function clearSearch(){document.getElementById('qi').value='';search('');document.getElementById('qi').focus();}
+</script>
+</body>
+</html>

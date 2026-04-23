@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1.0">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#F59E0B">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="AVERT SC">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+<title>AVERT SC — Pedido</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* TOKENS — sem cinza claro, contrastes fortes */
+:root{
+  /* Base */
+  --bg:#FAFAFA;
+  --surf:#FFFFFF;
+  --surf2:#F5F5F5;
+  
+  /* Texto — TUDO preto ou quase preto */
+  --ink:#0A0A0A;
+  --ink2:#262626;
+  --ink3:#525252;
+  
+  /* Bordas */
+  --line:#E5E5E5;
+  --line2:#D4D4D4;
+  --line3:#A3A3A3;
+  
+  /* Ações principais */
+  --black:#0A0A0A;
+  --amb:#C2410C;      /* laranja escuro pra preço base */
+  --amb-bg:#FFF7ED;
+  
+  /* Condições — cores SATURADAS, não pastéis */
+  --g:#047857;   --g-bg:#D1FAE5;   --g-ink:#064E3B;
+  --b:#1D4ED8;   --b-bg:#DBEAFE;   --b-ink:#1E3A8A;
+  --p:#6D28D9;   --p-bg:#EDE9FE;   --p-ink:#4C1D95;
+  
+  /* WhatsApp */
+  --wa:#128C7E;
+  --wa2:#075E54;
+  
+  /* Fontes */
+  --sans:'Manrope',system-ui,-apple-system,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+  
+  /* Safe area */
+  --sab:env(safe-area-inset-bottom,0px);
+}
+
+html{font-family:var(--sans);-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--ink);font-size:16px}
+body{min-height:100dvh;font-weight:500}
+*{-webkit-tap-highlight-color:transparent}
+input,button{font-family:var(--sans)}
+button{border:none;cursor:pointer}
+::-webkit-scrollbar{width:0;height:0}
+
+@keyframes sheetIn{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pop{0%{transform:scale(.9)}60%{transform:scale(1.04)}100%{transform:scale(1)}}
+
+/* ═══════════════ TOP ═══════════════ */
+.top{
+  position:sticky;top:0;z-index:200;
+  background:var(--ink);
+  padding:14px 16px;
+  display:flex;align-items:center;gap:14px;
+  border-bottom:2px solid var(--black);
+}
+.top-logo{
+  width:40px;height:40px;border-radius:10px;
+  background:#F59E0B;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-weight:700;font-size:13px;color:#000;
+  letter-spacing:.03em;flex-shrink:0;
+}
+.top-title{flex:1;min-width:0}
+.top-title h1{font-size:17px;font-weight:800;color:#FFF;letter-spacing:.02em;line-height:1.1}
+.top-title p{font-size:12px;color:#A3A3A3;font-weight:600;margin-top:2px;font-family:var(--mono)}
+.top-count{
+  background:#F59E0B;color:#000;
+  border-radius:999px;padding:8px 16px;
+  font-weight:800;font-size:15px;
+  min-width:48px;height:40px;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  flex-shrink:0;
+}
+
+/* ═══════════════ SEARCH ═══════════════ */
+.srch{
+  position:sticky;top:70px;z-index:150;
+  background:var(--bg);
+  padding:12px 16px;
+  border-bottom:2px solid var(--line);
+}
+.srch-box{position:relative}
+.srch-box input{
+  width:100%;height:52px;
+  background:var(--surf);
+  border:2px solid var(--line2);
+  border-radius:12px;
+  color:var(--ink);
+  font-size:17px;font-weight:600;
+  padding:0 46px 0 46px;
+  outline:none;
+  transition:border-color .12s;
+}
+.srch-box input::placeholder{color:var(--ink3);font-weight:500}
+.srch-box input:focus{border-color:var(--black)}
+.srch-ico{position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:20px;pointer-events:none;color:var(--ink2)}
+.srch-clr{
+  position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  width:36px;height:36px;border-radius:9px;
+  background:var(--surf2);
+  color:var(--ink2);font-size:22px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;
+  line-height:1;
+}
+
+/* ═══════════════ COUNT BAR ═══════════════ */
+.cntb{
+  padding:10px 16px;
+  background:var(--bg);
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:13px;font-weight:700;
+}
+.cntb-total{color:var(--ink2);font-family:var(--mono)}
+.cntb-sel{color:var(--g);font-weight:800;font-family:var(--mono)}
+
+/* ═══════════════ PRODUCT CARD ═══════════════ */
+.plist{padding:0 12px 100px}
+.card{
+  background:var(--surf);
+  border:2px solid var(--line);
+  border-radius:14px;
+  margin-bottom:10px;
+  overflow:hidden;
+  transition:border-color .12s,box-shadow .12s;
+}
+.card.has-sel{
+  border-color:var(--ink);
+  box-shadow:0 4px 0 var(--ink);
+  margin-bottom:16px;
+}
+
+/* Card header */
+.card-h{
+  padding:16px;
+  display:flex;align-items:flex-start;gap:14px;
+  cursor:pointer;
+  user-select:none;
+  background:var(--surf);
+}
+.card.has-sel .card-h{
+  background:var(--surf);
+  border-bottom:2px solid var(--ink);
+}
+.expand-ico{
+  width:28px;height:28px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  color:var(--ink2);
+  font-size:20px;font-weight:800;
+  transition:transform .15s;
+}
+.card.open .expand-ico{transform:rotate(90deg);color:var(--ink)}
+.prod-info{flex:1;min-width:0}
+.prod-name{
+  font-size:17px;font-weight:800;
+  color:var(--ink);
+  line-height:1.2;
+  letter-spacing:-.01em;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.prod-meta{
+  display:flex;align-items:center;gap:10px;margin-top:6px;
+  font-family:var(--mono);font-size:13px;font-weight:600;
+}
+.prod-code{color:var(--ink3)}
+.prod-sep{color:var(--line2)}
+.prod-price{color:var(--amb);font-weight:800;font-size:15px}
+.prod-pdv{color:var(--ink3);font-size:12px}
+.prod-badge{
+  background:var(--ink);color:#F59E0B;
+  border-radius:8px;padding:5px 10px;
+  font-family:var(--mono);font-weight:800;font-size:13px;
+  flex-shrink:0;
+  min-height:30px;display:flex;align-items:center;
+}
+
+/* ═══════════════ COND PICKER ═══════════════ */
+.cond-box{
+  background:var(--bg);
+  padding:16px;
+  display:none;
+}
+.card.open .cond-box{display:block}
+
+.cond-h{
+  font-size:12px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.08em;
+  color:var(--ink2);
+  margin-bottom:12px;
+}
+.cond-opts{
+  display:flex;flex-direction:column;gap:8px;
+}
+
+/* Cada condição = botão grande tipo "check item" */
+.cond-row{
+  width:100%;
+  background:var(--surf);
+  border:2.5px solid var(--line);
+  border-radius:12px;
+  padding:14px 14px;
+  display:flex;align-items:center;gap:12px;
+  text-align:left;
+  transition:all .12s;
+}
+.cond-row:active{transform:scale(.985)}
+
+/* Estados */
+.cond-row.g.on{border-color:var(--g);background:var(--g-bg);animation:pop .2s ease}
+.cond-row.b.on{border-color:var(--b);background:var(--b-bg);animation:pop .2s ease}
+.cond-row.p.on{border-color:var(--p);background:var(--p-bg);animation:pop .2s ease}
+
+/* Check square */
+.cond-chk{
+  width:28px;height:28px;
+  border-radius:8px;
+  border:2.5px solid var(--line3);
+  background:var(--surf);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  transition:all .12s;
+}
+.cond-row.g.on .cond-chk{background:var(--g);border-color:var(--g)}
+.cond-row.b.on .cond-chk{background:var(--b);border-color:var(--b)}
+.cond-row.p.on .cond-chk{background:var(--p);border-color:var(--p)}
+.cond-chk svg{width:18px;height:18px;color:#FFF;opacity:0;stroke-width:3.5}
+.cond-row.on .cond-chk svg{opacity:1}
+
+/* Cond label */
+.cond-label{flex:1;min-width:0}
+.cond-title{
+  font-size:16px;font-weight:800;color:var(--ink);
+  letter-spacing:-.01em;line-height:1.15;
+  font-family:var(--mono);
+}
+.cond-row.g.on .cond-title{color:var(--g-ink)}
+.cond-row.b.on .cond-title{color:var(--b-ink)}
+.cond-row.p.on .cond-title{color:var(--p-ink)}
+.cond-sub{
+  font-size:13px;color:var(--ink2);font-weight:600;margin-top:2px;
+}
+.cond-row.on .cond-sub{color:var(--ink)}
+
+/* Cond stats — só aparece quando selecionado */
+.cond-stats{
+  display:none;
+  text-align:right;flex-shrink:0;
+}
+.cond-row.on .cond-stats{display:block}
+.cond-unit{
+  font-family:var(--mono);font-size:18px;font-weight:800;
+  line-height:1;letter-spacing:-.02em;
+}
+.cond-row.g.on .cond-unit{color:var(--g-ink)}
+.cond-row.b.on .cond-unit{color:var(--b-ink)}
+.cond-row.p.on .cond-unit{color:var(--p-ink)}
+.cond-disc{
+  font-family:var(--mono);font-size:12px;font-weight:700;
+  margin-top:3px;
+}
+.cond-row.g.on .cond-disc{color:var(--g)}
+.cond-row.b.on .cond-disc{color:var(--b)}
+.cond-row.p.on .cond-disc{color:var(--p)}
+
+/* Quando NÃO selecionado, mostra o desconto em texto cinza */
+.cond-quick{
+  font-family:var(--mono);font-size:13px;font-weight:700;
+  color:var(--ink2);flex-shrink:0;
+}
+.cond-row.on .cond-quick{display:none}
+
+/* ═══════════════ EMPTY ═══════════════ */
+.empty{text-align:center;padding:80px 20px}
+.empty-ico{font-size:48px;margin-bottom:16px}
+.empty h3{font-size:20px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.empty p{font-size:15px;color:var(--ink2);font-weight:600}
+
+/* ═══════════════ BOTTOM CTA ═══════════════ */
+.bcta{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:520px;z-index:100;
+  background:var(--bg);
+  padding:12px 12px calc(12px + var(--sab));
+  border-top:2px solid var(--line);
+}
+.bcta-btn{
+  width:100%;height:60px;
+  background:var(--ink);
+  color:#FFF;
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;
+  font-size:17px;font-weight:800;
+  letter-spacing:-.01em;
+  box-shadow:0 4px 0 #000;
+}
+.bcta-btn:active{transform:translateY(2px);box-shadow:0 2px 0 #000}
+.bcta-left{display:flex;align-items:center;gap:12px}
+.bcta-icon{font-size:22px}
+.bcta-pill{
+  background:#F59E0B;color:#000;
+  border-radius:999px;padding:4px 14px;
+  font-family:var(--mono);font-weight:800;font-size:15px;
+}
+
+/* ═══════════════ SHEET ═══════════════ */
+.overlay{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(10,10,10,.7);
+  backdrop-filter:blur(4px);
+  animation:fadeIn .15s ease;
+}
+.sheet{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:100%;max-width:520px;
+  background:var(--bg);
+  border-radius:22px 22px 0 0;
+  max-height:94dvh;
+  display:flex;flex-direction:column;
+  animation:sheetIn .28s cubic-bezier(.32,.72,0,1);
+  box-shadow:0 -10px 40px rgba(0,0,0,.3);
+}
+.sheet-h{
+  background:var(--ink);
+  border-radius:22px 22px 0 0;
+  padding:18px 16px;
+  display:flex;align-items:center;gap:14px;
+  flex-shrink:0;
+}
+.sheet-back{
+  width:44px;height:44px;border-radius:12px;
+  background:rgba(255,255,255,.1);
+  color:#FFF;font-size:22px;font-weight:800;
+  display:flex;align-items:center;justify-content:center;
+}
+.sheet-title h2{font-size:19px;font-weight:800;color:#FFF;letter-spacing:-.01em}
+.sheet-title p{font-size:13px;color:#A3A3A3;font-weight:600;margin-top:2px;font-family:var(--mono)}
+.sheet-items{flex:1;overflow:auto;padding:14px 12px 4px}
+
+/* Sheet item */
+.si{
+  background:var(--surf);
+  border:2px solid var(--line);
+  border-radius:14px;
+  margin-bottom:10px;
+  overflow:hidden;
+}
+.si.g{border-color:var(--g)}
+.si.b{border-color:var(--b)}
+.si.p{border-color:var(--p)}
+
+.si-h{
+  padding:14px;
+  display:flex;align-items:flex-start;gap:12px;
+}
+.si-cond{
+  border-radius:10px;padding:6px 12px;
+  font-family:var(--mono);font-weight:800;font-size:14px;
+  flex-shrink:0;
+  letter-spacing:.02em;
+}
+.si.g .si-cond{background:var(--g);color:#FFF}
+.si.b .si-cond{background:var(--b);color:#FFF}
+.si.p .si-cond{background:var(--p);color:#FFF}
+
+.si-info{flex:1;min-width:0}
+.si-name{
+  font-size:16px;font-weight:800;color:var(--ink);
+  line-height:1.25;letter-spacing:-.01em;
+}
+.si-code{
+  font-family:var(--mono);font-size:12px;color:var(--ink3);font-weight:600;
+  margin-top:4px;
+}
+.si-rm{
+  width:36px;height:36px;border-radius:10px;
+  background:var(--surf2);color:var(--ink2);
+  font-size:22px;font-weight:600;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;line-height:1;
+}
+.si-rm:active{background:#FEE2E2;color:#991B1B}
+
+.si-body{
+  padding:12px 14px 14px;
+  background:var(--surf2);
+  border-top:2px solid var(--line);
+  display:flex;flex-direction:column;gap:8px;
+  font-family:var(--mono);
+}
+.si-line{display:flex;justify-content:space-between;align-items:center;font-size:14px}
+.si-line-label{color:var(--ink2);font-weight:600}
+.si-line-val{color:var(--ink);font-weight:800}
+.si-line.main{
+  padding-top:8px;
+  border-top:2px solid var(--line2);
+  margin-top:4px;
+}
+.si-line.main .si-line-label{font-size:14px;color:var(--ink);font-weight:700}
+.si-line.main .si-line-val{font-size:20px;color:var(--amb);font-weight:800}
+
+/* Summary */
+.summ{padding:8px 12px 14px;flex-shrink:0}
+.summ-card{
+  background:var(--ink);
+  border-radius:16px;
+  padding:18px 18px;
+  color:#FFF;
+}
+.summ-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:6px 0;
+  font-family:var(--mono);
+}
+.summ-row.hero{
+  padding-bottom:12px;margin-bottom:12px;
+  border-bottom:2px solid rgba(255,255,255,.1);
+}
+.summ-row.hero .summ-label{font-size:14px;color:#A3A3A3;font-weight:700}
+.summ-row.hero .summ-val{font-size:24px;color:#F59E0B;font-weight:800;letter-spacing:-.02em}
+.summ-row.eco .summ-label{font-size:13px;color:#A3A3A3;font-weight:600}
+.summ-row.eco .summ-val{font-size:15px;color:#10B981;font-weight:800}
+.summ-row.bri .summ-label{font-size:13px;color:#A3A3A3;font-weight:600}
+.summ-row.bri .summ-val{font-size:15px;color:#FFF;font-weight:800}
+
+/* WhatsApp CTA */
+.wa-wrap{padding:0 12px calc(14px + var(--sab));flex-shrink:0}
+.wa-btn{
+  width:100%;height:64px;
+  background:var(--wa);
+  color:#FFF;
+  border-radius:16px;
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  font-size:18px;font-weight:800;
+  letter-spacing:-.01em;
+  box-shadow:0 4px 0 var(--wa2);
+}
+.wa-btn:active{transform:translateY(2px);box-shadow:0 2px 0 var(--wa2)}
+.wa-btn svg{width:26px;height:26px;flex-shrink:0}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const PRODS=
+[{"codigo": "21014", "nome": "ARTROTABS PASTA X 60G", "preco": 141.88, "pdv": 222.37, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 133.01, "desconto_pct": 6.25, "desconto_rs": 8.87}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 118.23, "desconto_pct": 16.67, "desconto_rs": 23.65}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 106.41, "desconto_pct": 25.0, "desconto_rs": 35.47}}, {"codigo": "2785", "nome": "ARTROTABS STICKS X 30 BASTÕES", "preco": 163.86, "pdv": 256.82, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 153.61, "desconto_pct": 6.25, "desconto_rs": 10.24}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 136.55, "desconto_pct": 16.67, "desconto_rs": 27.31}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 122.89, "desconto_pct": 25.0, "desconto_rs": 40.96}}, {"codigo": "2842", "nome": "ARTROTABS VET X 30 COMP", "preco": 137.87, "pdv": 216.08, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 129.25, "desconto_pct": 6.25, "desconto_rs": 8.62}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 114.89, "desconto_pct": 16.67, "desconto_rs": 22.98}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 103.4, "desconto_pct": 25.0, "desconto_rs": 34.47}}, {"codigo": "21119", "nome": "BABYFLORA X 10G PASTA", "preco": 83.81, "pdv": 131.36, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 78.57, "desconto_pct": 6.25, "desconto_rs": 5.24}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 69.84, "desconto_pct": 16.67, "desconto_rs": 13.97}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 62.86, "desconto_pct": 25.0, "desconto_rs": 20.95}}, {"codigo": "21059", "nome": "BANDPET ESTÉRIL G X OR08", "preco": 109.24, "pdv": 160.52, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 102.41, "desconto_pct": 6.25, "desconto_rs": 6.83}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 91.03, "desconto_pct": 16.67, "desconto_rs": 18.21}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 81.93, "desconto_pct": 25.0, "desconto_rs": 27.31}}, {"codigo": "21048", "nome": "BANDPET ESTÉRIL M X OR08", "preco": 95.6, "pdv": 140.47, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 89.63, "desconto_pct": 6.25, "desconto_rs": 5.98}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 79.67, "desconto_pct": 16.67, "desconto_rs": 15.93}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 71.7, "desconto_pct": 25.0, "desconto_rs": 23.9}}, {"codigo": "21049", "nome": "BANDPET ESTÉRIL P X OR08", "preco": 80.3, "pdv": 117.99, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 75.28, "desconto_pct": 6.25, "desconto_rs": 5.02}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 66.92, "desconto_pct": 16.67, "desconto_rs": 13.38}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 60.22, "desconto_pct": 25.0, "desconto_rs": 20.07}}, {"codigo": "21050", "nome": "BANDPET ESTÉRIL PP X OR20", "preco": 120.13, "pdv": 176.51, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 112.62, "desconto_pct": 6.25, "desconto_rs": 7.51}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 100.11, "desconto_pct": 16.67, "desconto_rs": 20.02}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 90.1, "desconto_pct": 25.0, "desconto_rs": 30.03}}, {"codigo": "21051", "nome": "BANDPET NÃO ESTÉRIL G X OR07", "preco": 49.98, "pdv": 73.44, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 46.86, "desconto_pct": 6.25, "desconto_rs": 3.12}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 41.65, "desconto_pct": 16.67, "desconto_rs": 8.33}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 37.48, "desconto_pct": 25.0, "desconto_rs": 12.49}}, {"codigo": "21052", "nome": "BANDPET NÃO ESTÉRIL M X OR07", "preco": 43.69, "pdv": 64.2, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 40.96, "desconto_pct": 6.25, "desconto_rs": 2.73}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 36.41, "desconto_pct": 16.67, "desconto_rs": 7.28}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 32.77, "desconto_pct": 25.0, "desconto_rs": 10.92}}, {"codigo": "21053", "nome": "BANDPET NÃO ESTÉRIL P X OR07", "preco": 34.64, "pdv": 50.9, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 32.47, "desconto_pct": 6.25, "desconto_rs": 2.16}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 28.86, "desconto_pct": 16.67, "desconto_rs": 5.77}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 25.98, "desconto_pct": 25.0, "desconto_rs": 8.66}}, {"codigo": "21054", "nome": "BANDPET NÃO ESTÉRIL PP X OR07", "preco": 20.81, "pdv": 30.58, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 19.51, "desconto_pct": 6.25, "desconto_rs": 1.3}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 17.35, "desconto_pct": 16.67, "desconto_rs": 3.47}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 15.61, "desconto_pct": 25.0, "desconto_rs": 5.2}}, {"codigo": "2734", "nome": "BECORDIL 5 MG COM X 30", "preco": 82.85, "pdv": 129.86, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 77.67, "desconto_pct": 6.25, "desconto_rs": 5.18}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 69.04, "desconto_pct": 16.67, "desconto_rs": 13.81}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 62.14, "desconto_pct": 25.0, "desconto_rs": 20.71}}, {"codigo": "21123", "nome": "BENEFLORA DERME PASTA X 30G", "preco": 136.7, "pdv": 214.26, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 128.16, "desconto_pct": 6.25, "desconto_rs": 8.54}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 113.92, "desconto_pct": 16.67, "desconto_rs": 22.78}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 102.53, "desconto_pct": 25.0, "desconto_rs": 34.18}}, {"codigo": "21126", "nome": "BENEFLORA GATOS", "preco": 52.35, "pdv": 82.05, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 49.08, "desconto_pct": 6.25, "desconto_rs": 3.27}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 43.63, "desconto_pct": 16.67, "desconto_rs": 8.73}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 39.26, "desconto_pct": 25.0, "desconto_rs": 13.09}}, {"codigo": "21116", "nome": "BENEFLORA ORO PASTA 30G", "preco": 130.63, "pdv": 204.74, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 122.46, "desconto_pct": 6.25, "desconto_rs": 8.16}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 108.86, "desconto_pct": 16.67, "desconto_rs": 21.77}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 97.97, "desconto_pct": 25.0, "desconto_rs": 32.66}}, {"codigo": "2966", "nome": "BENEFLORA VET 14G X PAST X 1", "preco": 54.24, "pdv": 85.01, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 50.85, "desconto_pct": 6.25, "desconto_rs": 3.39}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 45.2, "desconto_pct": 16.67, "desconto_rs": 9.04}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 40.68, "desconto_pct": 25.0, "desconto_rs": 13.56}}, {"codigo": "21180", "nome": "CANINUS PROTEIN BAR DISP X 16", "preco": 107.07, "pdv": 167.82, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 100.38, "desconto_pct": 6.25, "desconto_rs": 6.69}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 89.23, "desconto_pct": 16.67, "desconto_rs": 17.85}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 80.3, "desconto_pct": 25.0, "desconto_rs": 26.77}}, {"codigo": "21235", "nome": "CISTIMICIN VET 20 COMP X 30", "preco": 120.5, "pdv": 188.87, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 112.97, "desconto_pct": 6.25, "desconto_rs": 7.53}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 100.42, "desconto_pct": 16.67, "desconto_rs": 20.08}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 90.38, "desconto_pct": 25.0, "desconto_rs": 30.13}}, {"codigo": "2898", "nome": "CISTIMICIN VET COMP X 30", "preco": 90.38, "pdv": 141.66, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 84.73, "desconto_pct": 6.25, "desconto_rs": 5.65}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 75.32, "desconto_pct": 16.67, "desconto_rs": 15.06}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 67.79, "desconto_pct": 25.0, "desconto_rs": 22.6}}, {"codigo": "2805", "nome": "CONDROPLEX 1000 X 60 CAP", "preco": 70.17, "pdv": 109.97, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 65.78, "desconto_pct": 6.25, "desconto_rs": 4.39}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 58.47, "desconto_pct": 16.67, "desconto_rs": 11.69}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 52.62, "desconto_pct": 25.0, "desconto_rs": 17.54}}, {"codigo": "2806", "nome": "CONDROPLEX 1000 X 60 COMP", "preco": 100.23, "pdv": 157.09, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 93.96, "desconto_pct": 6.25, "desconto_rs": 6.26}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 83.52, "desconto_pct": 16.67, "desconto_rs": 16.7}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 75.17, "desconto_pct": 25.0, "desconto_rs": 25.06}}, {"codigo": "2807", "nome": "CONDROPLEX 500 X 60 CAP", "preco": 47.61, "pdv": 74.63, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 44.64, "desconto_pct": 6.25, "desconto_rs": 2.98}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 39.68, "desconto_pct": 16.67, "desconto_rs": 7.94}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 35.71, "desconto_pct": 25.0, "desconto_rs": 11.9}}, {"codigo": "2808", "nome": "CONDROPLEX 500 X 60 COMP", "preco": 68.04, "pdv": 106.64, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 63.79, "desconto_pct": 6.25, "desconto_rs": 4.25}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 56.7, "desconto_pct": 16.67, "desconto_rs": 11.34}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 51.03, "desconto_pct": 25.0, "desconto_rs": 17.01}}, {"codigo": "2811", "nome": "CONDROPLEX LB 120G X 60 COMP", "preco": 128.01, "pdv": 200.63, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 120.01, "desconto_pct": 6.25, "desconto_rs": 8.0}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 106.67, "desconto_pct": 16.67, "desconto_rs": 21.33}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 96.01, "desconto_pct": 25.0, "desconto_rs": 32.0}}, {"codigo": "21015", "nome": "CONDROPLEX PASTA X 60 G", "preco": 86.11, "pdv": 134.96, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 80.73, "desconto_pct": 6.25, "desconto_rs": 5.38}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 71.76, "desconto_pct": 16.67, "desconto_rs": 14.35}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 64.58, "desconto_pct": 25.0, "desconto_rs": 21.53}}, {"codigo": "2812", "nome": "CONDROPLEX STICK´S  LB X 30 BASTÕES", "preco": 188.22, "pdv": 295.01, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 176.46, "desconto_pct": 6.25, "desconto_rs": 11.76}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 156.85, "desconto_pct": 16.67, "desconto_rs": 31.37}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 141.17, "desconto_pct": 25.0, "desconto_rs": 47.06}}, {"codigo": "2809", "nome": "CONDROPLEX STICK´S X 45 BASTÕES", "preco": 142.17, "pdv": 222.82, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 133.28, "desconto_pct": 6.25, "desconto_rs": 8.89}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 118.47, "desconto_pct": 16.67, "desconto_rs": 23.69}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 106.62, "desconto_pct": 25.0, "desconto_rs": 35.54}}, {"codigo": "21221", "nome": "DECRISE 100MG COM X 30", "preco": 66.29, "pdv": 103.9, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 62.15, "desconto_pct": 6.25, "desconto_rs": 4.14}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 55.24, "desconto_pct": 16.67, "desconto_rs": 11.05}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 49.72, "desconto_pct": 25.0, "desconto_rs": 16.57}}, {"codigo": "21222", "nome": "DECRISE 200MG COM X 30", "preco": 79.68, "pdv": 124.89, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 74.7, "desconto_pct": 6.25, "desconto_rs": 4.98}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 66.4, "desconto_pct": 16.67, "desconto_rs": 13.28}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 59.76, "desconto_pct": 25.0, "desconto_rs": 19.92}}, {"codigo": "21220", "nome": "DECRISE 50MG COM X 30", "preco": 55.19, "pdv": 86.5, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 51.74, "desconto_pct": 6.25, "desconto_rs": 3.45}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 45.99, "desconto_pct": 16.67, "desconto_rs": 9.2}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 41.39, "desconto_pct": 25.0, "desconto_rs": 13.8}}, {"codigo": "21115", "nome": "DERMAPET CAP X 30", "preco": 39.37, "pdv": 61.71, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 36.91, "desconto_pct": 6.25, "desconto_rs": 2.46}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 32.81, "desconto_pct": 16.67, "desconto_rs": 6.56}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 29.53, "desconto_pct": 25.0, "desconto_rs": 9.84}}, {"codigo": "2992", "nome": "DOSS VET 1000UI GOTAS X 5ML", "preco": 38.7, "pdv": 60.65, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 36.28, "desconto_pct": 6.25, "desconto_rs": 2.42}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 32.25, "desconto_pct": 16.67, "desconto_rs": 6.45}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 29.02, "desconto_pct": 25.0, "desconto_rs": 9.67}}, {"codigo": "21064", "nome": "FELICOMFORT  REFIL X 48 ML", "preco": 143.01, "pdv": 224.15, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 134.07, "desconto_pct": 6.25, "desconto_rs": 8.94}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 119.18, "desconto_pct": 16.67, "desconto_rs": 23.84}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 107.26, "desconto_pct": 25.0, "desconto_rs": 35.75}}, {"codigo": "21065", "nome": "FELICOMFORT DIFUS X 48 ML", "preco": 194.66, "pdv": 305.09, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 182.49, "desconto_pct": 6.25, "desconto_rs": 12.17}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 162.21, "desconto_pct": 16.67, "desconto_rs": 32.44}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 145.99, "desconto_pct": 25.0, "desconto_rs": 48.66}}, {"codigo": "21066", "nome": "FELICOMFORT SPRAY X 30 ML", "preco": 130.11, "pdv": 203.92, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 121.98, "desconto_pct": 6.25, "desconto_rs": 8.13}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 108.42, "desconto_pct": 16.67, "desconto_rs": 21.68}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 97.58, "desconto_pct": 25.0, "desconto_rs": 32.53}}, {"codigo": "21067", "nome": "FELICOMFORT SPRAY X 60 ML", "preco": 174.79, "pdv": 273.96, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 163.87, "desconto_pct": 6.25, "desconto_rs": 10.92}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 145.66, "desconto_pct": 16.67, "desconto_rs": 29.13}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 131.1, "desconto_pct": 25.0, "desconto_rs": 43.7}}, {"codigo": "2769", "nome": "FOLI B SUSPENSÃO ORAL X 30 ML", "preco": 66.72, "pdv": 104.58, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 62.55, "desconto_pct": 6.25, "desconto_rs": 4.17}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 55.6, "desconto_pct": 16.67, "desconto_rs": 11.12}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 50.04, "desconto_pct": 25.0, "desconto_rs": 16.68}}, {"codigo": "21125", "nome": "GLICOPET X 30 ML", "preco": 21.09, "pdv": 33.06, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 19.78, "desconto_pct": 6.25, "desconto_rs": 1.32}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 17.58, "desconto_pct": 16.67, "desconto_rs": 3.52}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 15.82, "desconto_pct": 25.0, "desconto_rs": 5.27}}, {"codigo": "2755", "nome": "HBFEL PASTA X 70G", "preco": 44.79, "pdv": 70.2, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 41.99, "desconto_pct": 6.25, "desconto_rs": 2.8}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 37.32, "desconto_pct": 16.67, "desconto_rs": 7.46}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 33.59, "desconto_pct": 25.0, "desconto_rs": 11.2}}, {"codigo": "21167", "nome": "HEMOLIPET STICKS 210G X 30", "preco": 70.33, "pdv": 110.23, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 65.94, "desconto_pct": 6.25, "desconto_rs": 4.4}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 58.61, "desconto_pct": 16.67, "desconto_rs": 11.72}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 52.75, "desconto_pct": 25.0, "desconto_rs": 17.58}}, {"codigo": "21118", "nome": "HEMOLIPET X 30 COMP", "preco": 42.71, "pdv": 66.94, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 40.04, "desconto_pct": 6.25, "desconto_rs": 2.67}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 35.59, "desconto_pct": 16.67, "desconto_rs": 7.12}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 32.03, "desconto_pct": 25.0, "desconto_rs": 10.68}}, {"codigo": "21117", "nome": "HEMOLIPET X 30 ML", "preco": 26.48, "pdv": 41.51, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 24.83, "desconto_pct": 6.25, "desconto_rs": 1.66}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 22.07, "desconto_pct": 16.67, "desconto_rs": 4.41}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 19.86, "desconto_pct": 25.0, "desconto_rs": 6.62}}, {"codigo": "2821", "nome": "HEPGUARD X 30 COMP (6 comp por blister)", "preco": 69.53, "pdv": 108.98, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 65.19, "desconto_pct": 6.25, "desconto_rs": 4.35}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 57.94, "desconto_pct": 16.67, "desconto_rs": 11.59}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 52.15, "desconto_pct": 25.0, "desconto_rs": 17.38}}, {"codigo": "2781", "nome": "KALIUM VET COM X 30", "preco": 48.96, "pdv": 76.73, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 45.9, "desconto_pct": 6.25, "desconto_rs": 3.06}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 40.8, "desconto_pct": 16.67, "desconto_rs": 8.16}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 36.72, "desconto_pct": 25.0, "desconto_rs": 12.24}}, {"codigo": "21025", "nome": "KALIUM VET GATOS 200MG COM X 30", "preco": 35.47, "pdv": 55.59, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 33.25, "desconto_pct": 6.25, "desconto_rs": 2.22}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 29.55, "desconto_pct": 16.67, "desconto_rs": 5.91}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 26.6, "desconto_pct": 25.0, "desconto_rs": 8.87}}, {"codigo": "9632", "nome": "LONGCARE CORDEIRO 250G", "preco": 24.5, "pdv": 40.08, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 22.97, "desconto_pct": 6.25, "desconto_rs": 1.53}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 20.42, "desconto_pct": 16.67, "desconto_rs": 4.08}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 18.38, "desconto_pct": 25.0, "desconto_rs": 6.13}}, {"codigo": "9631", "nome": "LONGCARE CORDEIRO 50G", "preco": 8.03, "pdv": 13.13, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 7.52, "desconto_pct": 6.25, "desconto_rs": 0.5}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 6.69, "desconto_pct": 16.67, "desconto_rs": 1.34}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 6.02, "desconto_pct": 25.0, "desconto_rs": 2.01}}, {"codigo": "9633", "nome": "LONGCARE CORDEIRO 50G X 12", "preco": 96.31, "pdv": 157.55, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 90.29, "desconto_pct": 6.25, "desconto_rs": 6.02}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 80.26, "desconto_pct": 16.67, "desconto_rs": 16.05}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 72.23, "desconto_pct": 25.0, "desconto_rs": 24.08}}, {"codigo": "9620", "nome": "LONGCARE FIT 250G", "preco": 24.5, "pdv": 40.08, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 22.97, "desconto_pct": 6.25, "desconto_rs": 1.53}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 20.42, "desconto_pct": 16.67, "desconto_rs": 4.08}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 18.38, "desconto_pct": 25.0, "desconto_rs": 6.13}}, {"codigo": "9619", "nome": "LONGCARE FIT 50G", "preco": 8.03, "pdv": 13.13, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 7.52, "desconto_pct": 6.25, "desconto_rs": 0.5}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 6.69, "desconto_pct": 16.67, "desconto_rs": 1.34}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 6.02, "desconto_pct": 25.0, "desconto_rs": 2.01}}, {"codigo": "9621", "nome": "LONGCARE FIT 50G X 12", "preco": 96.31, "pdv": 157.55, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 90.29, "desconto_pct": 6.25, "desconto_rs": 6.02}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 80.26, "desconto_pct": 16.67, "desconto_rs": 16.05}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 72.23, "desconto_pct": 25.0, "desconto_rs": 24.08}}, {"codigo": "9623", "nome": "LONGCARE MOBILITY 250G", "preco": 24.5, "pdv": 40.08, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 22.97, "desconto_pct": 6.25, "desconto_rs": 1.53}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 20.42, "desconto_pct": 16.67, "desconto_rs": 4.08}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 18.38, "desconto_pct": 25.0, "desconto_rs": 6.13}}, {"codigo": "9622", "nome": "LLONGCARE MOBILITY 50G", "preco": 8.03, "pdv": 13.13, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 7.52, "desconto_pct": 6.25, "desconto_rs": 0.5}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 6.69, "desconto_pct": 16.67, "desconto_rs": 1.34}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 6.02, "desconto_pct": 25.0, "desconto_rs": 2.01}}, {"codigo": "9624", "nome": "LONGCARE MOBILITY 50G X 12", "preco": 96.31, "pdv": 157.55, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 90.29, "desconto_pct": 6.25, "desconto_rs": 6.02}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 80.26, "desconto_pct": 16.67, "desconto_rs": 16.05}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 72.23, "desconto_pct": 25.0, "desconto_rs": 24.08}}, {"codigo": "9626", "nome": "LONGCARE NUTRIMUN 250G", "preco": 24.5, "pdv": 40.08, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 22.97, "desconto_pct": 6.25, "desconto_rs": 1.53}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 20.42, "desconto_pct": 16.67, "desconto_rs": 4.08}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 18.38, "desconto_pct": 25.0, "desconto_rs": 6.13}}, {"codigo": "9625", "nome": "LONGCARE NUTRIMUN 50G", "preco": 8.03, "pdv": 13.13, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 7.52, "desconto_pct": 6.25, "desconto_rs": 0.5}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 6.69, "desconto_pct": 16.67, "desconto_rs": 1.34}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 6.02, "desconto_pct": 25.0, "desconto_rs": 2.01}}, {"codigo": "9627", "nome": "LONGCARE NUTRIMUN 50G X 12", "preco": 96.31, "pdv": 157.55, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 90.29, "desconto_pct": 6.25, "desconto_rs": 6.02}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 80.26, "desconto_pct": 16.67, "desconto_rs": 16.05}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 72.23, "desconto_pct": 25.0, "desconto_rs": 24.08}}, {"codigo": "9617", "nome": "LONGCARE PROT HIDROL 250G", "preco": 26.4, "pdv": 43.19, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 24.75, "desconto_pct": 6.25, "desconto_rs": 1.65}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 22.0, "desconto_pct": 16.67, "desconto_rs": 4.4}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 19.8, "desconto_pct": 25.0, "desconto_rs": 6.6}}, {"codigo": "9616", "nome": "LONGCARE PROT HIDROL 50G", "preco": 9.23, "pdv": 15.1, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 8.65, "desconto_pct": 6.25, "desconto_rs": 0.58}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 7.69, "desconto_pct": 16.67, "desconto_rs": 1.54}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 6.92, "desconto_pct": 25.0, "desconto_rs": 2.31}}, {"codigo": "9618", "nome": "LONGCARE PROT HIDROL 50G X 12", "preco": 110.74, "pdv": 181.16, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 103.82, "desconto_pct": 6.25, "desconto_rs": 6.92}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 92.29, "desconto_pct": 16.67, "desconto_rs": 18.46}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 83.06, "desconto_pct": 25.0, "desconto_rs": 27.69}}, {"codigo": "9614", "nome": "LONGCARE SALM E TILAP 250G", "preco": 24.5, "pdv": 40.08, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 22.97, "desconto_pct": 6.25, "desconto_rs": 1.53}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 20.42, "desconto_pct": 16.67, "desconto_rs": 4.08}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 18.38, "desconto_pct": 25.0, "desconto_rs": 6.13}}, {"codigo": "9613", "nome": "LONGCARE SALM E TILAP 50G", "preco": 8.03, "pdv": 13.13, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 7.52, "desconto_pct": 6.25, "desconto_rs": 0.5}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 6.69, "desconto_pct": 16.67, "desconto_rs": 1.34}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 6.02, "desconto_pct": 25.0, "desconto_rs": 2.01}}, {"codigo": "9615", "nome": "LONGCARE SALM E TILAP 50G X 12", "preco": 96.31, "pdv": 157.55, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 90.29, "desconto_pct": 6.25, "desconto_rs": 6.02}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 80.26, "desconto_pct": 16.67, "desconto_rs": 16.05}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 72.23, "desconto_pct": 25.0, "desconto_rs": 24.08}}, {"codigo": "9629", "nome": "LONGCARE ZEN 250G", "preco": 24.5, "pdv": 40.08, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 22.97, "desconto_pct": 6.25, "desconto_rs": 1.53}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 20.42, "desconto_pct": 16.67, "desconto_rs": 4.08}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 18.38, "desconto_pct": 25.0, "desconto_rs": 6.13}}, {"codigo": "9628", "nome": "LONGCARE ZEN 50G", "preco": 8.03, "pdv": 13.13, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 7.52, "desconto_pct": 6.25, "desconto_rs": 0.5}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 6.69, "desconto_pct": 16.67, "desconto_rs": 1.34}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 6.02, "desconto_pct": 25.0, "desconto_rs": 2.01}}, {"codigo": "9630", "nome": "LONGCARE ZEN 50G X 12", "preco": 96.31, "pdv": 157.55, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 90.29, "desconto_pct": 6.25, "desconto_rs": 6.02}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 80.26, "desconto_pct": 16.67, "desconto_rs": 16.05}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 72.23, "desconto_pct": 25.0, "desconto_rs": 24.08}}, {"codigo": "21020", "nome": "MACROGARD PASTA X 60 G", "preco": 77.55, "pdv": 121.55, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 72.7, "desconto_pct": 6.25, "desconto_rs": 4.85}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 64.62, "desconto_pct": 16.67, "desconto_rs": 12.92}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 58.16, "desconto_pct": 25.0, "desconto_rs": 19.39}}, {"codigo": "2797", "nome": "MACROGARD PET", "preco": 114.88, "pdv": 180.05, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 107.7, "desconto_pct": 6.25, "desconto_rs": 7.18}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 95.73, "desconto_pct": 16.67, "desconto_rs": 19.15}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 86.16, "desconto_pct": 25.0, "desconto_rs": 28.72}}, {"codigo": "2796", "nome": "MACROGARD PET SMALL SIZE", "preco": 70.35, "pdv": 110.27, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 65.96, "desconto_pct": 6.25, "desconto_rs": 4.4}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 58.63, "desconto_pct": 16.67, "desconto_rs": 11.73}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 52.76, "desconto_pct": 25.0, "desconto_rs": 17.59}}, {"codigo": "2784", "nome": "MACROGARD STICKS X 30 BASTÕES", "preco": 125.35, "pdv": 196.47, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 117.52, "desconto_pct": 6.25, "desconto_rs": 7.83}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 104.46, "desconto_pct": 16.67, "desconto_rs": 20.89}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 94.01, "desconto_pct": 25.0, "desconto_rs": 31.34}}, {"codigo": "2798", "nome": "MELLIS VET 0,2 MG COM X 10", "preco": 13.53, "pdv": 21.21, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 12.69, "desconto_pct": 6.25, "desconto_rs": 0.85}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 11.28, "desconto_pct": 16.67, "desconto_rs": 2.26}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 10.15, "desconto_pct": 25.0, "desconto_rs": 3.38}}, {"codigo": "2971", "nome": "MELLIS VET 0,5 MG COM X 10", "preco": 21.98, "pdv": 34.45, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 20.6, "desconto_pct": 6.25, "desconto_rs": 1.37}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 18.31, "desconto_pct": 16.67, "desconto_rs": 3.66}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 16.48, "desconto_pct": 25.0, "desconto_rs": 5.49}}, {"codigo": "2972", "nome": "MELLIS VET 2MG COM X 10", "preco": 34.05, "pdv": 53.37, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 31.92, "desconto_pct": 6.25, "desconto_rs": 2.13}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 28.37, "desconto_pct": 16.67, "desconto_rs": 5.67}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 25.54, "desconto_pct": 25.0, "desconto_rs": 8.51}}, {"codigo": "2974", "nome": "MELLIS VET 3MG COM X 10", "preco": 37.78, "pdv": 59.22, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 35.42, "desconto_pct": 6.25, "desconto_rs": 2.36}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 31.48, "desconto_pct": 16.67, "desconto_rs": 6.3}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 28.34, "desconto_pct": 25.0, "desconto_rs": 9.45}}, {"codigo": "2973", "nome": "MELLIS VET 4MG COM X 10", "preco": 42.01, "pdv": 65.85, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 39.39, "desconto_pct": 6.25, "desconto_rs": 2.63}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 35.01, "desconto_pct": 16.67, "desconto_rs": 7.0}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 31.51, "desconto_pct": 25.0, "desconto_rs": 10.5}}, {"codigo": "2832", "nome": "NOXXI ATP SHAMPOO X 200 ML", "preco": 77.62, "pdv": 121.66, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 72.77, "desconto_pct": 6.25, "desconto_rs": 4.85}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 64.69, "desconto_pct": 16.67, "desconto_rs": 12.94}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 58.22, "desconto_pct": 25.0, "desconto_rs": 19.41}}, {"codigo": "21013", "nome": "NOXXI ATP SHAMPOO X 500 ML", "preco": 141.89, "pdv": 222.39, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 133.02, "desconto_pct": 6.25, "desconto_rs": 8.87}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 118.24, "desconto_pct": 16.67, "desconto_rs": 23.65}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 106.42, "desconto_pct": 25.0, "desconto_rs": 35.47}}, {"codigo": "2834", "nome": "NOXXI CONTROL SHAMPOO X 200 ML", "preco": 83.5, "pdv": 130.87, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 78.28, "desconto_pct": 6.25, "desconto_rs": 5.22}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 69.58, "desconto_pct": 16.67, "desconto_rs": 13.92}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 62.63, "desconto_pct": 25.0, "desconto_rs": 20.88}}, {"codigo": "2835", "nome": "NOXXI WALL SPRAY X 200 ML", "preco": 110.1, "pdv": 172.56, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 103.22, "desconto_pct": 6.25, "desconto_rs": 6.88}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 91.75, "desconto_pct": 16.67, "desconto_rs": 18.35}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 82.57, "desconto_pct": 25.0, "desconto_rs": 27.52}}, {"codigo": "2745", "nome": "NUTRAPET PO X 300G", "preco": 115.05, "pdv": 180.32, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 107.86, "desconto_pct": 6.25, "desconto_rs": 7.19}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 95.87, "desconto_pct": 16.67, "desconto_rs": 19.17}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 86.29, "desconto_pct": 25.0, "desconto_rs": 28.76}}, {"codigo": "2780", "nome": "OAT CARE SHAMP X 200 ML", "preco": 91.31, "pdv": 143.11, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 85.6, "desconto_pct": 6.25, "desconto_rs": 5.71}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 76.09, "desconto_pct": 16.67, "desconto_rs": 15.22}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 68.48, "desconto_pct": 25.0, "desconto_rs": 22.83}}, {"codigo": "21012", "nome": "OAT CARE SHAMP X 500ML", "preco": 176.54, "pdv": 276.7, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 165.51, "desconto_pct": 6.25, "desconto_rs": 11.03}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 147.12, "desconto_pct": 16.67, "desconto_rs": 29.42}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 132.4, "desconto_pct": 25.0, "desconto_rs": 44.13}}, {"codigo": "2778", "nome": "OAT CARE SOL OTOLOG X 100 ML", "preco": 51.45, "pdv": 80.64, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 48.23, "desconto_pct": 6.25, "desconto_rs": 3.22}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 42.87, "desconto_pct": 16.67, "desconto_rs": 8.57}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 38.59, "desconto_pct": 25.0, "desconto_rs": 12.86}}, {"codigo": "2779", "nome": "OAT CARE SOL SPRAY X 200 ML", "preco": 97.18, "pdv": 152.32, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 91.11, "desconto_pct": 6.25, "desconto_rs": 6.07}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 80.99, "desconto_pct": 16.67, "desconto_rs": 16.2}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 72.89, "desconto_pct": 25.0, "desconto_rs": 24.3}}, {"codigo": "21011", "nome": "OAT CARE SOL SPRAY X 500ML", "preco": 189.81, "pdv": 297.5, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 177.95, "desconto_pct": 6.25, "desconto_rs": 11.86}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 158.18, "desconto_pct": 16.67, "desconto_rs": 31.64}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 142.36, "desconto_pct": 25.0, "desconto_rs": 47.45}}, {"codigo": "2916", "nome": "OGRAX ARTRO 10 CAP X 30", "preco": 166.95, "pdv": 261.67, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 156.51, "desconto_pct": 6.25, "desconto_rs": 10.43}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 139.12, "desconto_pct": 16.67, "desconto_rs": 27.82}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 125.21, "desconto_pct": 25.0, "desconto_rs": 41.74}}, {"codigo": "21026", "nome": "OGRAX ARTRO 5 CAP X 30", "preco": 150.25, "pdv": 235.49, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 140.86, "desconto_pct": 6.25, "desconto_rs": 9.39}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 125.21, "desconto_pct": 16.67, "desconto_rs": 25.04}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 112.69, "desconto_pct": 25.0, "desconto_rs": 37.56}}, {"codigo": "2969", "nome": "OGRAX ARTRO 20 CAP X 30", "preco": 202.72, "pdv": 317.74, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 190.05, "desconto_pct": 6.25, "desconto_rs": 12.67}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 168.94, "desconto_pct": 16.67, "desconto_rs": 33.79}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 152.04, "desconto_pct": 25.0, "desconto_rs": 50.68}}, {"codigo": "21144", "nome": "OGRAX BABY SOL OR X 30 ML", "preco": 77.19, "pdv": 120.98, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 72.36, "desconto_pct": 6.25, "desconto_rs": 4.82}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 64.32, "desconto_pct": 16.67, "desconto_rs": 12.86}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 57.89, "desconto_pct": 25.0, "desconto_rs": 19.3}}, {"codigo": "21237", "nome": "OGRAX CELL 15 CAP X 30", "preco": 144.6, "pdv": 226.65, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 135.57, "desconto_pct": 6.25, "desconto_rs": 9.04}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 120.5, "desconto_pct": 16.67, "desconto_rs": 24.1}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 108.45, "desconto_pct": 25.0, "desconto_rs": 36.15}}, {"codigo": "21236", "nome": "OGRAX CELL 5 CAP X 30", "preco": 48.21, "pdv": 75.56, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 45.19, "desconto_pct": 6.25, "desconto_rs": 3.01}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 40.17, "desconto_pct": 16.67, "desconto_rs": 8.03}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 36.16, "desconto_pct": 25.0, "desconto_rs": 12.05}}, {"codigo": "2968", "nome": "OGRAX DERME 10 X 30 CAP", "preco": 88.49, "pdv": 138.7, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 82.96, "desconto_pct": 6.25, "desconto_rs": 5.53}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 73.74, "desconto_pct": 16.67, "desconto_rs": 14.75}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 66.37, "desconto_pct": 25.0, "desconto_rs": 22.12}}, {"codigo": "2967", "nome": "OGRAX DERME 20 X 30 CAP", "preco": 149.6, "pdv": 234.47, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 140.25, "desconto_pct": 6.25, "desconto_rs": 9.35}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 124.66, "desconto_pct": 16.67, "desconto_rs": 24.93}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 112.2, "desconto_pct": 25.0, "desconto_rs": 37.4}}, {"codigo": "2760", "nome": "OGRAX GATOS X 30", "preco": 72.88, "pdv": 114.22, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 68.32, "desconto_pct": 6.25, "desconto_rs": 4.55}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 60.73, "desconto_pct": 16.67, "desconto_rs": 12.15}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 54.66, "desconto_pct": 25.0, "desconto_rs": 18.22}}, {"codigo": "21179", "nome": "OGRAX PLUS 15 CAP X 30", "preco": 118.6, "pdv": 185.89, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 111.19, "desconto_pct": 6.25, "desconto_rs": 7.41}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 98.83, "desconto_pct": 16.67, "desconto_rs": 19.77}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 88.95, "desconto_pct": 25.0, "desconto_rs": 29.65}}, {"codigo": "21178", "nome": "OGRAX PLUS 5 CAP X 30", "preco": 83.52, "pdv": 130.9, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 78.3, "desconto_pct": 6.25, "desconto_rs": 5.22}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 69.6, "desconto_pct": 16.67, "desconto_rs": 13.92}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 62.64, "desconto_pct": 25.0, "desconto_rs": 20.88}}, {"codigo": "21240", "nome": "OGRAX SENIOR 10 CAP X 30", "preco": 124.21, "pdv": 194.68, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 116.44, "desconto_pct": 6.25, "desconto_rs": 7.76}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 103.51, "desconto_pct": 16.67, "desconto_rs": 20.7}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 93.16, "desconto_pct": 25.0, "desconto_rs": 31.05}}, {"codigo": "21238", "nome": "OGRAX SENIOR 5 CAP X 30", "preco": 62.39, "pdv": 97.78, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 58.49, "desconto_pct": 6.25, "desconto_rs": 3.9}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 51.99, "desconto_pct": 16.67, "desconto_rs": 10.4}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 46.79, "desconto_pct": 25.0, "desconto_rs": 15.6}}, {"codigo": "2825", "nome": "OGRAX-3 1000 MG", "preco": 98.22, "pdv": 153.94, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 92.08, "desconto_pct": 6.25, "desconto_rs": 6.14}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 81.85, "desconto_pct": 16.67, "desconto_rs": 16.37}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 73.66, "desconto_pct": 25.0, "desconto_rs": 24.55}}, {"codigo": "2826", "nome": "OGRAX-3 1500", "preco": 135.13, "pdv": 211.79, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 126.68, "desconto_pct": 6.25, "desconto_rs": 8.45}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 112.6, "desconto_pct": 16.67, "desconto_rs": 22.52}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 101.34, "desconto_pct": 25.0, "desconto_rs": 33.78}}, {"codigo": "2824", "nome": "OGRAX-3 500 MG", "preco": 69.4, "pdv": 108.78, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 65.07, "desconto_pct": 6.25, "desconto_rs": 4.34}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 57.84, "desconto_pct": 16.67, "desconto_rs": 11.57}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 52.05, "desconto_pct": 25.0, "desconto_rs": 17.35}}, {"codigo": "2100", "nome": "OGRAX-3 500 MG X 90 CAP", "preco": 143.25, "pdv": 224.53, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 134.3, "desconto_pct": 6.25, "desconto_rs": 8.95}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 119.38, "desconto_pct": 16.67, "desconto_rs": 23.88}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 107.44, "desconto_pct": 25.0, "desconto_rs": 35.81}}, {"codigo": "2744", "nome": "PET PROTEIN PO X 300G", "preco": 94.09, "pdv": 147.47, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 88.21, "desconto_pct": 6.25, "desconto_rs": 5.88}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 78.41, "desconto_pct": 16.67, "desconto_rs": 15.68}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 70.56, "desconto_pct": 25.0, "desconto_rs": 23.52}}, {"codigo": "2822", "nome": "PROBIÓTICO PET  DISP X 12", "preco": 349.56, "pdv": 547.88, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 327.71, "desconto_pct": 6.25, "desconto_rs": 21.85}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 291.3, "desconto_pct": 16.67, "desconto_rs": 58.26}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 262.17, "desconto_pct": 25.0, "desconto_rs": 87.39}}, {"codigo": "2823", "nome": "PROBIÓTICO PET  DISP 14G", "preco": 29.13, "pdv": 102.97, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 27.31, "desconto_pct": 6.25, "desconto_rs": 1.82}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 24.28, "desconto_pct": 16.67, "desconto_rs": 4.86}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 21.85, "desconto_pct": 25.0, "desconto_rs": 7.28}}, {"codigo": "2837", "nome": "QUERANON CAP X 30", "preco": 65.7, "pdv": 102.97, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 61.59, "desconto_pct": 6.25, "desconto_rs": 4.11}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 54.75, "desconto_pct": 16.67, "desconto_rs": 10.95}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 49.27, "desconto_pct": 25.0, "desconto_rs": 16.42}}, {"codigo": "2995", "nome": "QUERANON COMP X 30", "preco": 78.47, "pdv": 122.98, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 73.56, "desconto_pct": 6.25, "desconto_rs": 4.9}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 65.39, "desconto_pct": 16.67, "desconto_rs": 13.08}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 58.85, "desconto_pct": 25.0, "desconto_rs": 19.62}}, {"codigo": "2899", "nome": "QUERANON LB COM X 30", "preco": 108.23, "pdv": 169.64, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 101.47, "desconto_pct": 6.25, "desconto_rs": 6.76}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 90.19, "desconto_pct": 16.67, "desconto_rs": 18.04}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 81.17, "desconto_pct": 25.0, "desconto_rs": 27.06}}, {"codigo": "2915", "nome": "QUERANON PASTA X 70 G", "preco": 73.8, "pdv": 115.67, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 69.19, "desconto_pct": 6.25, "desconto_rs": 4.61}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 61.5, "desconto_pct": 16.67, "desconto_rs": 12.3}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 55.35, "desconto_pct": 25.0, "desconto_rs": 18.45}}, {"codigo": "2838", "nome": "QUERANON SMALL SIZE X 30 CAP", "preco": 44.78, "pdv": 70.18, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 41.98, "desconto_pct": 6.25, "desconto_rs": 2.8}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 37.31, "desconto_pct": 16.67, "desconto_rs": 7.46}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 33.58, "desconto_pct": 25.0, "desconto_rs": 11.19}}, {"codigo": "2799", "nome": "QUERANON SMALL SIZE X 30 COMP", "preco": 53.47, "pdv": 83.81, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 50.13, "desconto_pct": 6.25, "desconto_rs": 3.34}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 44.56, "desconto_pct": 16.67, "desconto_rs": 8.91}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 40.11, "desconto_pct": 25.0, "desconto_rs": 13.37}}, {"codigo": "2783", "nome": "QUERANON STICKS X 30 BASTÕES", "preco": 99.85, "pdv": 156.5, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 93.61, "desconto_pct": 6.25, "desconto_rs": 6.24}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 83.21, "desconto_pct": 16.67, "desconto_rs": 16.64}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 74.89, "desconto_pct": 25.0, "desconto_rs": 24.96}}, {"codigo": "2761", "nome": "QUETIN 10 X 60", "preco": 91.4, "pdv": 143.25, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 85.68, "desconto_pct": 6.25, "desconto_rs": 5.71}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 76.16, "desconto_pct": 16.67, "desconto_rs": 15.23}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 68.55, "desconto_pct": 25.0, "desconto_rs": 22.85}}, {"codigo": "2737", "nome": "QUETIN 30 X 60", "preco": 159.01, "pdv": 249.23, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 149.08, "desconto_pct": 6.25, "desconto_rs": 9.94}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 132.51, "desconto_pct": 16.67, "desconto_rs": 26.5}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 119.26, "desconto_pct": 25.0, "desconto_rs": 39.75}}, {"codigo": "21190", "nome": "REFOS DERME 30 COM X 30", "preco": 100.49, "pdv": 157.5, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 94.21, "desconto_pct": 6.25, "desconto_rs": 6.28}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 83.74, "desconto_pct": 16.67, "desconto_rs": 16.75}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 75.37, "desconto_pct": 25.0, "desconto_rs": 25.12}}, {"codigo": "2740", "nome": "REFOS DERME COMP X 30", "preco": 77.53, "pdv": 121.52, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 72.68, "desconto_pct": 6.25, "desconto_rs": 4.85}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 64.61, "desconto_pct": 16.67, "desconto_rs": 12.92}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 58.15, "desconto_pct": 25.0, "desconto_rs": 19.38}}, {"codigo": "21145", "nome": "SANUS 100 MG X 30", "preco": 101.46, "pdv": 159.02, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 95.12, "desconto_pct": 6.25, "desconto_rs": 6.34}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 84.55, "desconto_pct": 16.67, "desconto_rs": 16.91}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 76.09, "desconto_pct": 25.0, "desconto_rs": 25.36}}, {"codigo": "21164", "nome": "SANUS 200 MG X 30", "preco": 163.9, "pdv": 256.89, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 153.66, "desconto_pct": 6.25, "desconto_rs": 10.24}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 136.58, "desconto_pct": 16.67, "desconto_rs": 27.32}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 122.93, "desconto_pct": 25.0, "desconto_rs": 40.98}}, {"codigo": "2786", "nome": "SARCOPEN VET", "preco": 163.34, "pdv": 256.01, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 153.13, "desconto_pct": 6.25, "desconto_rs": 10.21}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 136.12, "desconto_pct": 16.67, "desconto_rs": 27.22}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 122.5, "desconto_pct": 25.0, "desconto_rs": 40.83}}, {"codigo": "2991", "nome": "SENIOX T CAP X 30", "preco": 133.45, "pdv": 209.16, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 125.11, "desconto_pct": 6.25, "desconto_rs": 8.34}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 111.21, "desconto_pct": 16.67, "desconto_rs": 22.24}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 100.09, "desconto_pct": 25.0, "desconto_rs": 33.36}}, {"codigo": "21096", "nome": "SERENLAC 225 MG COM X 15", "preco": 121.91, "pdv": 191.07, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 114.29, "desconto_pct": 6.25, "desconto_rs": 7.62}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 101.59, "desconto_pct": 16.67, "desconto_rs": 20.32}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 91.43, "desconto_pct": 25.0, "desconto_rs": 30.48}}, {"codigo": "21097", "nome": "SERENLAC 225 MG COM X 30", "preco": 182.81, "pdv": 286.52, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 171.38, "desconto_pct": 6.25, "desconto_rs": 11.43}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 152.34, "desconto_pct": 16.67, "desconto_rs": 30.47}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 137.11, "desconto_pct": 25.0, "desconto_rs": 45.7}}, {"codigo": "21095", "nome": "SERENLAC 75 MG COM X 30", "preco": 93.9, "pdv": 147.18, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 88.03, "desconto_pct": 6.25, "desconto_rs": 5.87}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 78.25, "desconto_pct": 16.67, "desconto_rs": 15.65}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 70.43, "desconto_pct": 25.0, "desconto_rs": 23.48}}, {"codigo": "21094", "nome": "SERENLAC 75MG COM X 15", "preco": 62.53, "pdv": 98.0, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 58.62, "desconto_pct": 6.25, "desconto_rs": 3.91}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 52.11, "desconto_pct": 16.67, "desconto_rs": 10.42}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 46.9, "desconto_pct": 25.0, "desconto_rs": 15.63}}, {"codigo": "2731", "nome": "SINDOLOR 250 MG/20MG COM X 10", "preco": 72.93, "pdv": 114.3, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 68.37, "desconto_pct": 6.25, "desconto_rs": 4.56}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 60.77, "desconto_pct": 16.67, "desconto_rs": 12.15}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 54.7, "desconto_pct": 25.0, "desconto_rs": 18.23}}, {"codigo": "3000", "nome": "SINDOLOR 750 MG/60 MG COM 10", "preco": 86.97, "pdv": 136.32, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 81.54, "desconto_pct": 6.25, "desconto_rs": 5.44}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 72.48, "desconto_pct": 16.67, "desconto_rs": 14.5}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 65.23, "desconto_pct": 25.0, "desconto_rs": 21.74}}, {"codigo": "21120", "nome": "SINDOLOR GATOS 50/8MG COMP 10", "preco": 51.83, "pdv": 81.24, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 48.59, "desconto_pct": 6.25, "desconto_rs": 3.24}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 43.19, "desconto_pct": 16.67, "desconto_rs": 8.64}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 38.88, "desconto_pct": 25.0, "desconto_rs": 12.96}}, {"codigo": "2975", "nome": "TORZEMIN 2 MG COM X 30", "preco": 37.28, "pdv": 58.43, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 34.95, "desconto_pct": 6.25, "desconto_rs": 2.33}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 31.06, "desconto_pct": 16.67, "desconto_rs": 6.21}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 27.96, "desconto_pct": 25.0, "desconto_rs": 9.32}}, {"codigo": "2976", "nome": "TORZEMIN 4 MG COM X 30", "preco": 51.81, "pdv": 81.21, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 48.57, "desconto_pct": 6.25, "desconto_rs": 3.24}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 43.18, "desconto_pct": 16.67, "desconto_rs": 8.64}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 38.86, "desconto_pct": 25.0, "desconto_rs": 12.95}}, {"codigo": "21239", "nome": "UP FLORA CAP X 30", "preco": 204.16, "pdv": 319.99, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 191.4, "desconto_pct": 6.25, "desconto_rs": 12.76}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 170.14, "desconto_pct": 16.67, "desconto_rs": 34.03}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 153.12, "desconto_pct": 25.0, "desconto_rs": 51.04}}, {"codigo": "21042", "nome": "UP FLORA CAP X 8", "preco": 89.59, "pdv": 140.43, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 83.99, "desconto_pct": 6.25, "desconto_rs": 5.6}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 74.66, "desconto_pct": 16.67, "desconto_rs": 14.93}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 67.2, "desconto_pct": 25.0, "desconto_rs": 22.4}}, {"codigo": "21191", "nome": "UP FLORA MINI CAP X 8", "preco": 58.4, "pdv": 91.54, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 54.75, "desconto_pct": 6.25, "desconto_rs": 3.65}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 48.67, "desconto_pct": 16.67, "desconto_rs": 9.73}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 43.8, "desconto_pct": 25.0, "desconto_rs": 14.6}}, {"codigo": "21192", "nome": "UP FLORA MINI CAPS X 30", "preco": 143.56, "pdv": 225.0, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 134.58, "desconto_pct": 6.25, "desconto_rs": 8.97}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 119.63, "desconto_pct": 16.67, "desconto_rs": 23.93}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 107.67, "desconto_pct": 25.0, "desconto_rs": 35.89}}, {"codigo": "2961", "nome": "VITECOL COMP X 30", "preco": 72.22, "pdv": 113.19, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 67.71, "desconto_pct": 6.25, "desconto_rs": 4.51}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 60.18, "desconto_pct": 16.67, "desconto_rs": 12.04}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 54.16, "desconto_pct": 25.0, "desconto_rs": 18.05}}, {"codigo": "2895", "nome": "VONAU VET 5 MG/ML SOL OR X 30 ML", "preco": 59.58, "pdv": 93.39, "c15_1": {"compra": 15, "bonus": 1, "recebe": 16, "unitario": 55.86, "desconto_pct": 6.25, "desconto_rs": 3.72}, "c25_5": {"compra": 25, "bonus": 5, "recebe": 30, "unitario": 49.65, "desconto_pct": 16.67, "desconto_rs": 9.93}, "c30_10": {"compra": 30, "bonus": 10, "recebe": 40, "unitario": 44.69, "desconto_pct": 25.0, "desconto_rs": 14.9}}]
+;
+
+const CONDS=[
+  {id:'c15_1', label:'15 + 1', cls:'g', compra:15, recebe:16, bonus:1,  pct:6.25},
+  {id:'c25_5', label:'25 + 5', cls:'b', compra:25, recebe:30, bonus:5,  pct:16.67},
+  {id:'c30_10',label:'30 + 10',cls:'p', compra:30, recebe:40, bonus:10, pct:25.00},
+];
+const CMAP=Object.fromEntries(CONDS.map(c=>[c.id,c]));
+
+const fmt=v=>v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fpct=v=>v.toFixed(2).replace('.',',')+'%';
+
+// ═══════ STATE ═══════
+// cart: {"codigo_condId": true}  → permite MESMO produto com múltiplas condições
+let query='';
+let cart={};
+let opened=new Set();    // produtos expandidos
+let cartOpen=false;
+let focusSearch=false;
+
+function fscore(s,q){
+  s=s.toLowerCase();q=q.toLowerCase();
+  if(s.includes(q))return 100-s.indexOf(q);
+  let sc=0,qi=0;
+  for(let i=0;i<s.length&&qi<q.length;i++)if(s[i]===q[qi]){sc++;qi++;}
+  return qi===q.length?sc:0;
+}
+function filtered(){
+  if(!query.trim())return PRODS;
+  return PRODS.map(p=>({p,s:Math.max(fscore(p.nome,query),fscore(p.codigo,query)*1.5)}))
+    .filter(r=>r.s>0).sort((a,b)=>b.s-a.s).map(r=>r.p);
+}
+function cartItems(){
+  return Object.keys(cart).map(key=>{
+    const [cod,condId]=key.split('__');
+    const p=PRODS.find(pr=>pr.codigo===cod);
+    const cond=CMAP[condId];
+    const cData=p[condId];
+    const total=cond.compra*p.preco;
+    const eco=cData.desconto_rs*cond.compra;
+    return{key,p,condId,cond,cData,total,eco};
+  });
+}
+function cartCount(){return Object.keys(cart).length}
+function hasSel(cod){return CONDS.some(c=>cart[`${cod}__${c.id}`])}
+
+function toggleOpen(cod){
+  if(opened.has(cod))opened.delete(cod);
+  else opened.add(cod);
+  render();
+}
+function toggleCondition(cod,condId){
+  const key=`${cod}__${condId}`;
+  if(cart[key])delete cart[key];
+  else cart[key]=true;
+  render();
+}
+function removeItem(key){
+  delete cart[key];
+  render();
+}
+
+// ═══════ WhatsApp ═══════
+function sendWA(){
+  const items=cartItems();
+  const totalPed=items.reduce((s,it)=>s+it.total,0);
+  const totalEco=items.reduce((s,it)=>s+it.eco,0);
+  const totalBri=items.reduce((s,it)=>s+it.cond.bonus,0);
+  
+  const lines=items.map(it=>[
+    `*${it.p.nome}* (#${it.p.codigo})`,
+    `  Condição: *${it.cond.label}* — recebe ${it.cond.recebe} un`,
+    `  Unit. efetivo: R$ ${fmt(it.cData.unitario)} (−${fpct(it.cData.desconto_pct)})`,
+    `  Total: *R$ ${fmt(it.total)}*`
+  ].join('\n')).join('\n\n');
+  
+  const msg=[
+    '🐾 *PEDIDO — AVERT SC*',
+    '📅 Tabela 05/03/2026 · Prazo 56 dias',
+    '',
+    lines,
+    '',
+    '━━━━━━━━━━━━━━━━━',
+    `💰 *TOTAL: R$ ${fmt(totalPed)}*`,
+    `✨ Economia: R$ ${fmt(totalEco)}`,
+    `🎁 Brindes: ${totalBri} unidades`
+  ].join('\n');
+  
+  window.open(`https://wa.me/5547988694878?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+// ═══════ DOM HELPERS ═══════
+function el(tag,attrs,children){
+  const e=document.createElement(tag);
+  for(const k in attrs||{}){
+    const v=attrs[k];
+    if(v==null||v===false)continue;
+    if(k==='class')e.className=v;
+    else if(k==='style')e.style.cssText=v;
+    else if(k.startsWith('on'))e.addEventListener(k.slice(2).toLowerCase(),v);
+    else e.setAttribute(k,v);
+  }
+  (children||[]).filter(c=>c!=null&&c!==false).forEach(c=>{
+    e.appendChild(typeof c==='string'?document.createTextNode(c):c);
+  });
+  return e;
+}
+const tx=s=>document.createTextNode(s);
+
+function checkSvg(){
+  const s=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  s.setAttribute('viewBox','0 0 24 24');
+  s.setAttribute('fill','none');
+  s.setAttribute('stroke','currentColor');
+  s.setAttribute('stroke-linecap','round');
+  s.setAttribute('stroke-linejoin','round');
+  s.innerHTML='<polyline points="5 13 9 17 19 7"/>';
+  return s;
+}
+
+function waSvg(){
+  const s=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  s.setAttribute('viewBox','0 0 24 24');
+  s.setAttribute('fill','currentColor');
+  s.innerHTML='<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.527 5.845L.057 23.882l6.218-1.437A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.793 9.793 0 01-4.99-1.366l-.358-.213-3.712.859.884-3.607-.234-.371A9.787 9.787 0 012.182 12c0-5.42 4.398-9.818 9.818-9.818 5.421 0 9.818 4.398 9.818 9.818 0 5.421-4.397 9.818-9.818 9.818z"/>';
+  return s;
+}
+
+// ═══════ COMPONENTS ═══════
+function makeCondRow(p,cond){
+  const key=`${p.codigo}__${cond.id}`;
+  const on=!!cart[key];
+  const cData=p[cond.id];
+  
+  return el('button',{
+    class:`cond-row ${cond.cls}${on?' on':''}`,
+    onclick:(e)=>{e.stopPropagation();toggleCondition(p.codigo,cond.id);}
+  },[
+    el('div',{class:'cond-chk'},[checkSvg()]),
+    el('div',{class:'cond-label'},[
+      el('div',{class:'cond-title'},[cond.label]),
+      el('div',{class:'cond-sub'},[`Recebe ${cond.recebe} un · paga ${cond.compra}`]),
+    ]),
+    // Quick discount (when off) OR full stats (when on)
+    on
+      ? el('div',{class:'cond-stats'},[
+          el('div',{class:'cond-unit'},[`R$ ${fmt(cData.unitario)}`]),
+          el('div',{class:'cond-disc'},[`−${fpct(cData.desconto_pct)}`]),
+        ])
+      : el('div',{class:'cond-quick'},[`−${fpct(cond.pct)}`]),
+  ]);
+}
+
+function makeCard(p){
+  const isOpen=opened.has(p.codigo);
+  const selected=hasSel(p.codigo);
+  const selCount=CONDS.filter(c=>cart[`${p.codigo}__${c.id}`]).length;
+  
+  const head=el('div',{class:'card-h',onclick:()=>toggleOpen(p.codigo)},[
+    el('div',{class:'expand-ico'},[isOpen?'▾':'▸']),
+    el('div',{class:'prod-info'},[
+      el('div',{class:'prod-name',title:p.nome},[p.nome]),
+      el('div',{class:'prod-meta'},[
+        el('span',{class:'prod-code'},[`#${p.codigo}`]),
+        el('span',{class:'prod-sep'},['·']),
+        el('span',{class:'prod-price'},[`R$ ${fmt(p.preco)}`]),
+        p.pdv?el('span',{class:'prod-sep'},['·']):null,
+        p.pdv?el('span',{class:'prod-pdv'},[`PDV ${fmt(p.pdv)}`]):null,
+      ]),
+    ]),
+    selCount>0?el('div',{class:'prod-badge'},[`${selCount}×`]):null,
+  ]);
+  
+  const box=el('div',{class:'cond-box'},[
+    el('div',{class:'cond-h'},['Escolher condição(ões)']),
+    el('div',{class:'cond-opts'},CONDS.map(c=>makeCondRow(p,c))),
+  ]);
+  
+  return el('div',{
+    class:`card ${isOpen?'open':''} ${selected?'has-sel':''}`
+  },[head,box]);
+}
+
+function makeSheetItem(it){
+  const {key,p,cond,cData,total,eco}=it;
+  return el('div',{class:`si ${cond.cls}`},[
+    el('div',{class:'si-h'},[
+      el('div',{class:'si-cond'},[cond.label]),
+      el('div',{class:'si-info'},[
+        el('div',{class:'si-name'},[p.nome]),
+        el('div',{class:'si-code'},[`#${p.codigo} · Base R$ ${fmt(p.preco)}`]),
+      ]),
+      el('button',{class:'si-rm',onclick:()=>removeItem(key)},['×']),
+    ]),
+    el('div',{class:'si-body'},[
+      el('div',{class:'si-line'},[
+        el('span',{class:'si-line-label'},[`Unit. efetivo (${cond.recebe} un recebidas)`]),
+        el('span',{class:'si-line-val'},[`R$ ${fmt(cData.unitario)}`]),
+      ]),
+      el('div',{class:'si-line'},[
+        el('span',{class:'si-line-label'},[`Desconto por unidade`]),
+        el('span',{class:'si-line-val',style:`color:var(--${cond.cls==='g'?'g':cond.cls==='b'?'b':'p'})`},[`−${fpct(cData.desconto_pct)}`]),
+      ]),
+      el('div',{class:'si-line main'},[
+        el('span',{class:'si-line-label'},[`Total do item (paga ${cond.compra} un)`]),
+        el('span',{class:'si-line-val'},[`R$ ${fmt(total)}`]),
+      ]),
+    ]),
+  ]);
+}
+
+// ═══════ RENDER ═══════
+function render(){
+  const app=document.getElementById('app');
+  const items=cartItems();
+  const count=items.length;
+  const prods=filtered();
+  
+  // Salvar caret da busca pra restaurar
+  const prevInp=app.querySelector('#searchInput');
+  const selStart=prevInp?prevInp.selectionStart:null;
+  
+  while(app.firstChild)app.removeChild(app.firstChild);
+  
+  // ━━━ TOP BAR ━━━
+  app.appendChild(el('div',{class:'top'},[
+    el('div',{class:'top-logo'},['AV']),
+    el('div',{class:'top-title'},[
+      el('h1',{},['AVERT SC']),
+      el('p',{},['Tabela 05/03/2026 · 56 dias']),
+    ]),
+    count>0
+      ? el('button',{class:'top-count',onclick:()=>{cartOpen=true;render();}},[`🛒 ${count}`])
+      : null,
+  ]));
+  
+  // ━━━ SEARCH ━━━
+  const inp=el('input',{
+    id:'searchInput',type:'text',
+    placeholder:'Buscar produto…',autocomplete:'off',spellcheck:'false',
+    oninput:(e)=>{query=e.target.value;focusSearch=true;render();},
+    value:query,
+  });
+  const clr=query?el('button',{class:'srch-clr',onclick:()=>{query='';focusSearch=true;render();}},['×']):null;
+  app.appendChild(el('div',{class:'srch'},[
+    el('div',{class:'srch-box'},[
+      el('div',{class:'srch-ico'},['⌕']),
+      inp, clr,
+    ]),
+  ]));
+  
+  // ━━━ COUNT BAR ━━━
+  app.appendChild(el('div',{class:'cntb'},[
+    el('span',{class:'cntb-total'},[query?`${prods.length} encontrado${prods.length!==1?'s':''}`:`${PRODS.length} produtos`]),
+    count>0?el('span',{class:'cntb-sel'},[`${count} no carrinho`]):null,
+  ]));
+  
+  // ━━━ LIST ━━━
+  const list=el('div',{class:'plist'},[]);
+  if(prods.length===0){
+    list.appendChild(el('div',{class:'empty'},[
+      el('div',{class:'empty-ico'},['🔍']),
+      el('h3',{},['Nenhum produto encontrado']),
+      el('p',{},['Tente outro nome ou código']),
+    ]));
+  }else{
+    prods.forEach(p=>list.appendChild(makeCard(p)));
+  }
+  app.appendChild(list);
+  
+  // ━━━ BOTTOM CTA ━━━
+  if(count>0&&!cartOpen){
+    app.appendChild(el('div',{class:'bcta'},[
+      el('button',{class:'bcta-btn',onclick:()=>{cartOpen=true;render();}},[
+        el('div',{class:'bcta-left'},[
+          el('span',{class:'bcta-icon'},['🛒']),
+          el('span',{},['Ver pedido']),
+        ]),
+        el('span',{class:'bcta-pill'},[`${count} ${count===1?'item':'itens'}`]),
+      ]),
+    ]));
+  }
+  
+  // ━━━ SHEET ━━━
+  if(cartOpen){
+    const totalPed=items.reduce((s,it)=>s+it.total,0);
+    const totalEco=items.reduce((s,it)=>s+it.eco,0);
+    const totalBri=items.reduce((s,it)=>s+it.cond.bonus,0);
+    
+    const overlay=el('div',{class:'overlay'},[]);
+    overlay.onclick=(e)=>{if(e.target===overlay){cartOpen=false;render();}};
+    
+    const sheet=el('div',{class:'sheet'},[
+      el('div',{class:'sheet-h'},[
+        el('button',{class:'sheet-back',onclick:()=>{cartOpen=false;render();}},['←']),
+        el('div',{class:'sheet-title'},[
+          el('h2',{},['Seu pedido']),
+          el('p',{},[`${count} ${count===1?'item':'itens'} · ${totalBri} un de brinde`]),
+        ]),
+      ]),
+      el('div',{class:'sheet-items'},items.map(it=>makeSheetItem(it))),
+      el('div',{class:'summ'},[
+        el('div',{class:'summ-card'},[
+          el('div',{class:'summ-row hero'},[
+            el('span',{class:'summ-label'},['TOTAL DO PEDIDO']),
+            el('span',{class:'summ-val'},[`R$ ${fmt(totalPed)}`]),
+          ]),
+          el('div',{class:'summ-row eco'},[
+            el('span',{class:'summ-label'},['Economia gerada']),
+            el('span',{class:'summ-val'},[`−R$ ${fmt(totalEco)}`]),
+          ]),
+          el('div',{class:'summ-row bri'},[
+            el('span',{class:'summ-label'},['Brindes inclusos']),
+            el('span',{class:'summ-val'},[`${totalBri} un`]),
+          ]),
+        ]),
+      ]),
+      el('div',{class:'wa-wrap'},[
+        el('button',{class:'wa-btn',onclick:sendWA},[waSvg(),tx('Enviar pelo WhatsApp')]),
+      ]),
+    ]);
+    overlay.appendChild(sheet);
+    app.appendChild(overlay);
+  }
+  
+  // Restaurar foco da busca
+  if(focusSearch){
+    requestAnimationFrame(()=>{
+      const newInp=app.querySelector('#searchInput');
+      if(newInp){
+        newInp.focus();
+        if(selStart!=null){try{newInp.setSelectionRange(selStart,selStart);}catch(e){}}
+      }
+      focusSearch=false;
+    });
+  }
+}
+
+render();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
